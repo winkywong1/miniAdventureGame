@@ -2,7 +2,7 @@
 A simple adventure game
 
 Member: 3035695189 Wong Wing Kei
-Member: Mak Ka Ho
+Member: 3035691195 Mak Ka Ho
 
 Game description:
 We are planning to create a simple adventure game.
