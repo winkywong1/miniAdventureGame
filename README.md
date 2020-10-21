@@ -1,16 +1,18 @@
 # miniAdventure
 A simple adventure game
 
-Member: 3035695189 Wong Wing Kei
-Member: 3035691195 Mak Ka Ho
+- Member: 3035695189 Wong Wing Kei
+- Member: 3035691195 Mak Ka Ho
+
+//
 
 Game description:
-We are planning to create a simple adventure game.
-There are three difficulty levels in total, "Easy", "Normal", "Hard".
-Every player gets 100% Strength at the beginning.
-There will be some hearts(to gain strength) and some obstacles(to loss strength).
-The player should try their best to catch the hearts and avoid the obstacles.
-Once the strength of player turns 0, the game will end and the player will lose.
+- We are planning to create a simple adventure game.- 
+- There are three difficulty levels in total, "Easy", "Normal", "Hard".
+- Every player gets 100% Strength at the beginning.
+- There will be some hearts(to gain strength) and some obstacles(to loss strength).
+- The player should try their best to catch the hearts and avoid the obstacles.
+- Once the strength of player turns 0, the game will end and the player will lose.
 
 //
 
