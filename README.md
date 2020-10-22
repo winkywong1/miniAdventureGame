@@ -28,6 +28,8 @@ For "Hard", an object will come out without showing that it is heart or obstacle
 Win: Passing all three levels 
 - Number of hearts and obstacles will be recorded. Best result will be calculated by subtracting the number of obstacles to the number of hearts
 
+// 
+
 List of features that we plan to implement:
--The obstacle and the hearts will appear randomly, which matches with the coding requirement 1. 
-- 
+- The obstacle and the hearts will appear randomly, which matches with the coding requirement 1. 
+- Separate in three files for three levels and the structure of the game
