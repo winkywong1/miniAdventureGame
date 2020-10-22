@@ -1,6 +1,7 @@
 # miniAdventure
 A simple adventure game
 
+Group: 122
 - Member: 3035695189 Wong Wing Kei
 - Member: 3035691195 Mak Ka Ho
 
