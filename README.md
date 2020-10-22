@@ -34,3 +34,5 @@ Win: Passing all three levels
 List of features that we plan to implement:
 - The obstacle and the hearts will appear randomly, which matches with the coding requirement 1. 
 - Separate in three files for three levels and the structure of the game
+- We wll have a file for the obstables, a file for hearts, a file for the players and a file for the adventure, which fulfils the requirement 4. 
+- A program will be set up to 
