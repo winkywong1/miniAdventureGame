@@ -63,7 +63,7 @@ Otherwise, he will lose the game.
 List of features that we plan to implement:
 
 The rock-paper-scissors will appear randomly, matching with coding requirement 1. 
-Separate in three files for three levels and the structure of the game
-We will have a file for the obstables, a file for hearts, a file for the players and a file for the adventure, which fulfils the requirement 4 and 5.
+Separate in three files for three elements and the structure of the game
+We will have a file for the monsters, a file for the players and a file for the adventure, which fulfils the requirement 4 and 5.
 There will be files to loading the game status, calculate the marks of the player, choose the difficulties etc, which fulfils the requirement 4.
 The game status will be stored in arrays to let the storage be more organized, which is the requirment 2.
