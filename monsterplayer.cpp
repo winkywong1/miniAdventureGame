@@ -7,7 +7,7 @@ struct monsterposition{
     int miny;
     int maxx;
     int maxy;
-}
+};
 
 monsterposition mp;
 
@@ -16,38 +16,48 @@ struct ballotposition{
     int minb;
     int maxa;
     int maxb;
-}
+};
 
 ballotposition bp;
 
 
-int monsterposition(&mp.minx, &mp.miny, &mp.maxx, &mp.maxy)
+int monsterpos(int &p, int &q, int &r, int &s)
 {
-    int sizeofmonster=10;
+    int sizeofmonster=90;
     srand(time(NULL));
     int a=rand()%100, b=rand()%100;
-   mp.minx=a;
-   mp.miny=b;
-   mp.maxx=a+sizeofmonster;
-   mp.miny=b+sizeofmonster;
+   p=a;
+   q=b;
+   r=a+sizeofmonster;
+   s=b+sizeofmonster;
    return 0;
 }
 
-int ballotposition(&bp.mina, &bp.minb, &bp.maxa, &bp.maxb,&c,&d){
-    int sizeofballot=1;
-    srand(time(NULL));
-   bp.mina=c;
-   bp.minb=d;
-   bp.maxa=c+sizeofmonster;
-   bp.minb=d+sizeofmonster;
-   return 0;
+int ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
+    int sizeofballot=50;
+   p=c;
+   q=d;
+   r=c+sizeofballot;
+   s=d+sizeofballot;
 }
 
-bool IsOverlap(AABB p, AABB q) {
-  if ( p.min[X] > q.max[X] || p.min[Y] > q.max[Y] || q.min[X] > p.max[X] || q.min[Y] > p.max[Y]){
+bool IsOverlap(monsterposition p, ballotposition q) {
+  if ( p.minx > q.maxa || p.miny > q.maxb || q.mina > p.maxx || q.minb > p.maxy){
     return false;
   }
   else{
     return true;
   }
+}
+
+int main(){
+  int c,d;
+  cin>>c>>d;
+  monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
+  ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
+  cout<<IsOverlap(mp,bp)<<endl;
+  cout<<mp.minx<<' '<<mp.miny<<endl;
+  cout<<mp.maxx<<' '<<mp.maxy<<endl;
+  cout<<bp.mina<<' '<<bp.minb<<endl;
+  cout<<bp.maxa<<' '<<bp.maxb<<endl;
 }
