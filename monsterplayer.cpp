@@ -42,3 +42,12 @@ int ballotposition(&bp.mina, &bp.minb, &bp.maxa, &bp.maxb,&c,&d){
    bp.minb=d+sizeofmonster;
    return 0;
 }
+
+bool IsOverlap(AABB p, AABB q) {
+  if ( p.min[X] > q.max[X] || p.min[Y] > q.max[Y] || q.min[X] > p.max[X] || q.min[Y] > p.max[Y]){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
