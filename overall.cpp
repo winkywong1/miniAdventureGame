@@ -11,6 +11,13 @@ vector<int> levelSucceed;
 int life = 100;
 bool lose;
 
+// for blackjack
+string whoPlay[2] = {"dealer", "user"};
+char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
+int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
+const int maxNumOfPoker = 5;
+
+
 void show() {
     cout << endl;
     usleep(15000);
@@ -19,27 +26,445 @@ void show() {
     cout << "        CP: " << life << "                    Bag: ";
     for (thing = bag.begin(); thing != bag.end(); thing++) 
         cout << *thing << ' ';
-    cout << endl;
-    cout << "---------------------------------------------------------------------------------------" << endl;
+    cout << endl << "---------------------------------------------------------------------------------------" << endl;
+}
+
+void winGame() {
+    lose = false;
+    cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" << endl << endl;
+    cout << "                You successfully rescue your dog!!!!! Congraduations!!!!               " << endl;
+    usleep(5000);
+    cout << endl << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  < E N D     O F     G A M E >  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~" << endl;
 }
 
 void endGame() {
     lose = true;
-    cout << endl;
-    cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
-    cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
-    cout << endl;
-    cout << "You fail to save your dog." << endl;
+    cout << endl << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
+    cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl << endl;;
+    cout << "                              You fail to save your dog.                               " << endl;
     usleep(5000);
-    cout << endl;
-    cout << "You can never see your dog and you are very upset." << endl;
+    cout << endl << "                  You can never see your dog and you are very upset.                   " << endl;
     usleep(5000);
+    cout << endl << "                             - - G A M E     O V E R - -" << endl;
+}
+
+void process(int num, char number[maxNumOfPoker], char a, int *mina, int *maxa, int *minto, int *maxto) {
+    number[num] = a;
+    srand(time(NULL));
+    for (int i = 0; i < 13; i++) {
+        if (a == poker[i]) {
+            if (a == 'A') {
+                *mina = 1;
+                *maxa = 11;
+            }
+            else if (a == 'x') {
+                *mina = 10;
+                *maxa = 10;
+            }
+            else {
+                *mina = pokerNum[i];
+                *maxa = pokerNum[i];
+            }
+        }
+    }
+    *minto += *mina;
+    *maxto += *maxa;
+}
+
+void blackjack() {
+    cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
+    cout << "                                << B L A C K J A C K >>                                " << endl << endl;
+    cout << "---------------------------------------------------------------------------------------" << endl << endl;;
+
+    char word[] = "Rule of Blackjack: \n"
+        "1. Your aim is to get a total of 21 points according to the face value of the card.\n"
+        "2. An Ace can count as either 1 or 11. \n"
+        "3. All 10, J, Q and K count as 10. \n"
+        "4. If you get a total of points more than 21, your hand is a BUST and you lose the game. \n"
+        "5. If the hands of you and the dealer are both bust, you still lose the game. \n"
+        "6. If you get 21 points, even if the dealer get 21 points, you still win. \n"
+        "7. If you and the dealer do not bust, you can win only if your total is higher.\n"
+        "8. Hit = want a more card ; Stand = keep the card and stop taking anymore card. \n";
+
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
     cout << endl;
-    cout << "                                   G A M E     O V E R" << endl;
+
+    bool userHits = true;
+    bool dealerHits = true;
+    bool Ubust = false;
+    bool Dbust = false;
+    bool userWins, dealerWins;
+    int round = 1;
+    int userCard = 2;
+    int dealerCard = 2;
+    char UshowPo[maxNumOfPoker];
+    char DshowPo[maxNumOfPoker];
+
+    struct player
+    {
+        char card1, card2, card3, card4, card5;
+        int mintotal = 0; int maxtotal = 0;
+        int minVcard1 = 0; int maxVcard1 = 0;
+        int minVcard2 = 0; int maxVcard2 = 0;
+        int minVcard3 = 0; int maxVcard3 = 0;
+        int minVcard4 = 0; int maxVcard4 = 0;
+        int minVcard5 = 0; int maxVcard5 = 0;
+    };    
+
+    player dealer, user;
+
+    dealer.card1 = poker[rand() % 13];
+    dealer.card2 = poker[rand() % 13];
+    user.card1 = poker[rand() % 13];
+    user.card2 = poker[rand() % 13];
+
+    process(0, DshowPo, dealer.card1, &dealer.minVcard1, &dealer.maxVcard1, &dealer.mintotal, &dealer.maxtotal);
+    process(1, DshowPo, dealer.card2, &dealer.minVcard2, &dealer.maxVcard2, &dealer.mintotal, &dealer.maxtotal);
+    process(0, UshowPo, user.card1, &user.minVcard1, &user.maxVcard1, &user.mintotal, &user.maxtotal);
+    process(1, UshowPo, user.card2, &user.minVcard2, &user.maxVcard2, &user.mintotal, &user.maxtotal);
+    
+    cout << "-------------------------------------- Dealer ---------------------------------------" << endl << endl;
+    cout << "Bad guy said, \"Let me be the dealer.\"" << endl;
+    cout << "\"I have got a " << dealer.card1 << ".\"" << endl << endl;
+    cout << "Now is your turn to play." << endl << endl;
+    sleep(1);
+    cout << "-------------------------------------- Round " << round << " --------------------------------------" << endl << endl;
+    char input1;
+    cout << "You are holding ";
+    for (int i = 0; i < userCard; i++) {
+        if (UshowPo[i] == 'x')
+            cout << "10 ";
+        else
+            cout << UshowPo[i] << " ";
+    }
+    cout << ". " << endl;
+    cout << "The smaller possible sum of card is " << user.mintotal << " and the larger possible is " << user.maxtotal << ". " << endl;
+
+    while (userHits && !Ubust) {
+        if (user.mintotal == 21 || user.maxtotal == 21) {
+            userWins = true;
+            cout << endl << "Blackjack!!! Amazing!!! Let\'s how is it the dealer" << endl;
+            cout << endl << "Press SPACE to continue" << endl << endl;
+            char space;
+            cin >> space;
+            if (space == ' ')
+                break;
+        }
+        cout << endl;
+        round += 1;
+        usleep(30000);
+        cout << "-------------------------------------- Round " << round << " --------------------------------------" << endl;
+        cout << endl;
+        cout << "Do you want to hit or to stand? (h: hit / s: stand)" << endl;
+        char input;
+        cin >> input;
+        cout << endl;
+        while (input != 'h' && input != 's') {
+            cout << "Invalid Input! Please answer again.\n";
+            cout << "Do you want to hit or to stand? (h: hit / s: stand)";
+            cin >> input;
+        }
+        if (input == 'h') {
+            userHits = true;
+            if (userCard == 2) {
+                user.card3 = poker[rand() % 13];
+                process(userCard, UshowPo, user.card3, &user.minVcard3, &user.maxVcard3, &user.mintotal, &user.maxtotal);
+            }
+            if (userCard == 3) {
+                user.card4 = poker[rand() % 13];
+                process(userCard, UshowPo, user.card4, &user.minVcard4, &user.maxVcard4, &user.mintotal, &user.maxtotal);
+            }
+            if (userCard == 4) {
+                user.card5 = poker[rand() % 13];
+                process(userCard, UshowPo, user.card5, &user.minVcard5, &user.maxVcard5, &user.mintotal, &user.maxtotal);
+            }
+            userCard += 1;
+            cout << "You choose to hit. Now you have got ";
+            for (int i = 0; i < userCard; i++) {
+                if (UshowPo[i] == 'x')
+                    cout << "10 ";
+                else
+                    cout << UshowPo[i] << " ";
+            }
+            cout << ". " << endl;
+            cout << "The smaller possible sum of card is " << user.mintotal << " and the larger possible is " << user.maxtotal << ". " << endl;
+        }
+        if (input == 's') {
+            userHits = false;
+            cout << "You choose to stand." << endl;
+            cout << "The smaller possible sum of card is " << user.mintotal << " and the larger possible is " << user.maxtotal << ". " << endl;
+            cout << endl;
+        }
+        if (user.mintotal > 21) {
+            Ubust = true;
+            cout << endl;
+            cout << "!!!!! BUST !!!!!" << endl;
+            break;
+        }
+        if (user.mintotal == 21 || user.maxtotal == 21) {
+            userWins = true;
+            cout << endl;
+            cout << "Bingo!!! Black Jack!!! :D" << endl;
+            break;
+        }
+    }
+    cout << endl << "------------------------------------ Dealer's Turn ------------------------------------" << endl << endl;
+    cout << "Bad guy said, \"Well, you finished then now is my turn.\"" << endl;
+    cout << "I am holding ";
+    for (int i = 0; i < dealerCard; i++) {
+        if (DshowPo[i] == 'x')
+            cout << "10 ";
+        else
+            cout << DshowPo[i] << " ";
+    }
+    cout << ". " << endl;
+
+    if (dealer.mintotal < 17)  
+        dealerHits = true;
+
+    while (dealerHits && !Dbust) {
+        if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
+            dealerWins = true;
+            break;
+        }
+        if (dealerCard == 2) {
+            dealer.card3 = poker[rand() % 13];
+            process(dealerCard, DshowPo, dealer.card3, &dealer.minVcard3, &dealer.maxVcard3, &dealer.mintotal, &dealer.maxtotal);
+        }
+        if (dealerCard == 3) {
+            user.card4 = poker[rand() % 13];
+            process(dealerCard, DshowPo, dealer.card4, &dealer.minVcard4, &dealer.maxVcard4, &dealer.mintotal, &dealer.maxtotal);
+        }
+        if (dealerCard == 4) {
+            user.card5 = poker[rand() % 13];
+            process(dealerCard, DshowPo, dealer.card5, &dealer.minVcard5, &dealer.maxVcard5, &dealer.mintotal, &user.maxtotal);
+        }
+        dealerCard += 1;
+        usleep(30000);
+        cout << "Hit! Let\'s see what I get. ";
+        for (int j = 0; j < dealerCard; j++) {
+            if (DshowPo[j] == 'x')
+                cout << "10 ";
+            else
+                cout << DshowPo[j] << " ";
+        }
+        cout << ". " << endl;
+        usleep(30000);
+        if (dealer.mintotal < 17)  {
+            dealerHits = true;
+        }
+        if (dealer.mintotal >= 17) {
+            dealerHits = false;
+        }
+        if (dealer.mintotal > 21) {
+            Dbust = true;
+            cout << endl;
+            cout << "!!!!! WHAT??? BUST !!!!!" << endl;
+            break;
+        }
+        if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
+            dealerWins = true;
+            cout << endl;
+            cout << "Bad guy said, \"Woohooooo!! 21!!!!\"" << endl;
+            break;
+        }
+    }
+    cout << endl;
+    sleep(1);
+    cout << "---------------------------------------------------------------------------------------" << endl << endl;
+    if (Ubust && Dbust) {
+        cout << "Bad guy said, \"Although I busted, you are still counted as lose, poor guy.\"" << endl;
+        cout << "\"Say bye to your dog!\"" << endl << endl;
+        endGame();
+    }
+    if (Ubust && !Dbust) {
+        cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
+        endGame();
+    }
+    if (!Ubust && Dbust) {
+        cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
+        cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
+        winGame();
+    }
+
+    if (!Ubust && !Dbust) {
+        if ((userWins && !dealerWins) || (dealer.mintotal > user.mintotal)) {
+            cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
+            cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
+            winGame();
+        }
+        else if ((!userWins && dealerWins) || (dealer.mintotal < user.mintotal)) {
+            cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
+            endGame();
+        }
+        else if ((userWins && dealerWins) || (dealer.mintotal == user.mintotal)) {
+            cout << "Bad guy said, \"Okay... It\'s a draw...\"" << endl;
+            cout << "\"But we have make a deal that only playing one round.\"" << endl;
+            cout << "\"Fine, lucky you. Just take your dog and go away.\"" << endl << endl;
+            winGame();
+        }
+    }
+}
+
+void finalStage() {
+    show();
+    cout << endl;
+    char word[] = "You meet your dog after so many obstacles. \n"
+        "HOWEVER, the bad guy sits right next to the dog and keeps you away from him. \n"
+        "The bad guy said, \"You want to save your dog? IMPOSSIBLE!\" \n ...... \n"
+        "\"Unless... you win me in the blackjack. I am master of blackjack.\" \n"
+        "\"And we just need to play one round. What do you think?\"\n";
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
+    cout << endl << "\"At least it is a chance...,\" you think." << endl;
+    cout << "Just give it a try!" << endl;
+    blackjack();
+}
+
+void castleDoor() {
+    show();
+    cout << endl;
+    char word[] = "You search room by room and you finally reach the last room. \n"
+        "Your dog probably is locked in this room but you cannot go in there.";
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
+    cout << endl;
+    char op[] = "You now have three options: \n"
+        "1. ask the ghost for help if she is your accompany \n"
+        "2. break into the room \n"
+        "3. frustrated and give up to save your dog \n";
+    for (int j = 0; j < sizeof(op); j++) {
+        cout << op[j];
+        usleep(3000);
+    }
+    bool haveG;
+    vector<string>::iterator find;
+    for (find = bag.begin(); find != bag.end(); find++) {
+        if (*find == "ghost") 
+            haveG = true;
+        else
+            haveG = false;
+    }
+
+    cout << endl << "You will choose option 1, 2 or 3? (1 / 2 / 3)" << endl;
+    int option;
+    cin >> option;
+    while (option != 1 && option != 2 && option != 3) {
+        cout << "Invalid Input! Please answer again.\n";
+        cout << "You will choose option 1, 2 or 3? (1 / 2 / 3)";
+        cin >> option;
+    }
+    if (option == 1 && haveG) {
+        cout << "The ghost passes through the wall and unlocks the door inside the room." << endl;
+        cout << "You can finally get in." << endl;
+        cout << "Your dog is excited about seeing you and you reach the last challenge." << endl;
+        finalStage();
+    }
+    while (option == 1 && !haveG) {
+        cout << "You are not staying with the ghost so you can't choose option 1.\n";
+        cout << "Please choose option 2 or 3. Will you choose 2 or 3? (2 / 3)\n";
+        cin >> option;
+    }
+    if (option == 2) {
+        cout << "You use your body to hit the body until it opens." << endl;
+        cout << "You successfully open the door but you are hurt during the process." << endl;
+        cout << "Your CP is decreased by 20." << endl;
+        life -= 20;
+        cout << "However, you finally see your dog! You reach the last challenge." << endl;
+        finalStage();
+    }
+    if (option == 3) {
+        cout << "You give up saving your dog." << endl;
+        cout << "You hear he is crying but you turn and leave the castle." << endl;
+        endGame();
+    }
+    sleep(2);
+}
+
+void withGhost() {
+    cout << "Will you invite her to join your adventure? (y: yes / n: no)" << endl;
+    char answer;
+    cin >> answer;
+    cout << endl;
+    while (answer != 'y' && answer != 'n') {
+        cout << "Invalid Input! Please answer again.\n";
+        cout << "Your response: (y: yes / n: no) ";
+        cin >> answer;
+    }
+    if (answer == 'y') {
+        cout << "You ask for help from the ghost and she is glad for your invitation." << endl;
+        cout << "You two become accompany and continue the journey together." << endl;
+        bag.push_back("ghost");
+    }
+    if (answer == 'n') {
+        cout << "The ghost thinks you just act like the other people abandoning her." << endl;
+        cout << "She is angry so she slaps your right on your face and rans away." << endl << endl;
+        life -= 10;
+        cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
+    }
+}
+
+void castleGhost() {
+    cout << endl;
+    char word[] = "The ghost said, \"I am so bored. I want you to play a game with me.\" \n"
+        "\"How about you choose a number between 1 and 10? \" \n"
+        "You have no choice and you have to play with her. \n";
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
+
+    int guessNum;
+    cout << "Please choose a number (1 - 10): " << endl;
+    cin >> guessNum;
+    cout << endl;
+    if (guessNum % 2 == 0) {
+        char even[] = "The ghost said, \"I love even number! Everything is so perfect when it is even.\" \n";
+        for (int j = 0; j < sizeof(even); j++) {
+            cout << even[j];
+            usleep(3000);
+        }
+        cout << endl << "The ghost is happy and satisfied. You feel sad for her for being alone all the time." << endl;
+        withGhost();
+    }
+    else if (guessNum % 2 != 0) {
+        char odd[] = "The ghost said, \"I hate odd number!!! I hate to be alone!!!\" \n"
+            "\"Why everybody left me here and escape from me by all mean.\" \n" 
+            "\"I hate you!!!!!!\"";
+        for (int k = 0; k < sizeof(odd); k++) {
+            cout << odd[k];
+            usleep(3000);
+        }
+        cout << endl << "The ghost is furious and she attacks you." << endl;
+        cout << "You cannot see that happened and you get hurt seriously." << endl;
+        cout << endl;
+        life -= 30;
+        cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
+    }
+    castleDoor();
 }
 
 void castle() {
-
+    show();
+    cout << endl;
+    char word[] = "You use the key to enter the castle. \n"
+        "The castle is enormous and you almost get lost in there. \n"
+        "Something suddenly comes out and scared you a lot.\n"
+        "You find out that she is a ghost.\n";
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
+    castleGhost();
+    cout << endl;
 }
 
 void guessKey() {
@@ -59,16 +484,18 @@ void guessKey() {
     guessWord.push_back("treasure");
     guessWord.push_back("puppy");
     guessWord.push_back("halloween");
+    srand(time(NULL));
     int rnum = rand() % 3;
     string hereWord = guessWord[rnum];
 
     string userAnswer;
     int trial = 0;
-    bool correct;
-
+    bool correct = false;
+    if (userAnswer == hereWord)
+        correct = true;
     cout << endl;
 
-    while (!correct && trial != 3) {
+    while ((!correct) && (trial != 3)) {
         cout << endl;
         if (hereWord == "treasure") {
             if (trial == 0) {
@@ -77,6 +504,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
             if (trial == 1) {
                 cout << "Wrong Guess!" << endl;
@@ -84,6 +515,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
             if (trial == 2) {
                 cout << "Wrong Guess!" << endl;
@@ -91,6 +526,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
         }
 
@@ -101,6 +540,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
             if (trial == 1) {
                 cout << "Wrong Guess!" << endl;
@@ -108,6 +551,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
             if (trial == 2) {
                 cout << "Wrong Guess!" << endl;
@@ -115,6 +562,10 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
         }
 
@@ -125,13 +576,22 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
+
             if (trial == 1) {
                 cout << "Wrong Guess!" << endl;
                 cout << "Tip: candy" << endl;
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
             if (trial == 2) {
                 cout << "Wrong Guess!" << endl;
@@ -139,27 +599,29 @@ void guessKey() {
                 cout << "Your guess is: " << endl;
                 cin >> userAnswer;
                 trial += 1;
+                if (userAnswer == hereWord) {
+                    correct = true;
+                    break;
+                }
             }
         }
-        if (userAnswer == hereWord) {
-            correct = true;
-            break;
-        }
     }
-
+    cout << endl;
     if (correct) {
         char con[] = "Congraduations! Your answer is correct! Awesome. \n"
-            "You can use your key to go into the castle now.";
+            "You can use your key to go into the castle now.\n";
         for (int j = 0; j < sizeof(con); j++) {
             cout << con[j];
             usleep(3000);
         }
-        bag.push_back("key");
         castle();
     }
-    else {
+    if (!correct) {
+        cout << endl << "You fail to guess the right word." << endl;
+        cout << "The answer should be " << hereWord << endl;
         endGame();
     }
+    cout << endl;
 }
 
 void castleIn() {
@@ -167,7 +629,7 @@ void castleIn() {
     cout << endl;
     char word[] = "You finally reach the castle, where your dog is in there. \n"
         "You walk to the door and find out that there is a huge lock. You need a key to open it.\n"
-        "Do you have a key? (y: yes / n: no) ";
+        "Do you have a key? (y: yes / n: no) \n";
     for (int i = 0; i < sizeof(word); i++) {
         cout << word[i];
         usleep(3000);
@@ -178,20 +640,20 @@ void castleIn() {
     bool haveKey;
     vector<string>::iterator find;
     for (find = bag.begin(); find != bag.end(); find++) {
-        if (*find == "key" && input == 'y') {
+        if (*find == "key" && input == 'y') 
             haveKey = true;
-        }
-        else {
+        else 
             haveKey = false;
-        }
+        
     }
     if (haveKey) {
         cout << "Woohooo~ You successfully use the key to get in the castle." << endl;
         cout << "You are ready to save your dog!" << endl;
+        castle();
     }
     else {
-        cout << "An elf jumps out and said, \"Sad for you, " << name << ". \n";
-        cout << "Seems you got no key in hand. Do you want a last choice to get the key?\"" << endl;
+        cout << "An elf jumps out and said, \"Sad for you, " << name << ".\" \n";
+        cout << "\"Seems you got no key in hand. Do you want a last choice to get the key?\"" << endl;
         cout << "Your response: (y: yes / n: no) " << endl;
         char answer;
         cin >> answer;
@@ -205,6 +667,7 @@ void castleIn() {
         if (answer == 'n') 
             endGame();
     }
+    cout << endl;
 }
 
 void defense() {
@@ -250,6 +713,8 @@ void defense() {
         }
         life -= 30;
     }
+    cout << endl;
+    castleIn();
 }
 
 void wolf() {
@@ -270,23 +735,26 @@ void wolf() {
     vector<string>::iterator find;
     for (find = bag.begin(); find != bag.end(); find++) {
         if (answer == 'y') {
-            if (*find == "steak" || *find == "fish")
+            if ((*find == "steak") || (*find == "fish")) {
                 haveFood = true;
-            else
+            }
+            else {
                 haveFood = false;
+            }
         }
-        else
+        if (answer == 'n') 
             haveFood = false;
     }
 
     if (haveFood) {
         char food[] = "The wolf is happy and full now. \n"
         "He walks away without hurting you and you are safe now. \n \n" 
-        "You can keep on your adventure.";
+        "You can keep on your adventure.\n \n";
         for (int j = 0; j < sizeof(food); j++) {
             cout << food[j];
             usleep(3000);
         }
+        castleIn();
     }
     if (!haveFood) {
         char nofood[] = "You have no food to give him!! \n"
@@ -298,7 +766,7 @@ void wolf() {
         }
         defense();
     }
-
+    cout << endl;
 }
 
 void lake() {
@@ -323,6 +791,7 @@ void lake() {
     bool again = false;
     char randChoice[3] = {'r','p','s'};
     char fairyDecision;
+    srand(time(NULL));
     fairyDecision = randChoice[rand() % 3];
 
     cin >> userChoice;
@@ -368,7 +837,7 @@ void lake() {
     if (!userWin) {
         cout << "Fairy plays " << fairyDecision << endl;
         cout << "Fairy said, \"Sorry for you. I afraid that I cannot give your stick back. Bye~\"" << endl;
-        cout << "You are unhappy and frustrated so you hit on a tree and pass out." << endl;
+        cout << "You are unhappy and frustrated so you hit on a tree and pass out." << endl << endl;
         cout << "You lose 20 CP." << endl;
         life -= 20;
         bag.pop_back();
@@ -419,21 +888,9 @@ void woodhouse() {
         }
         life -= 20;
     }
+    cout << endl;
     wolf();
 }
-
-void tree() {
-    show();
-    cout << endl;
-
-}
-
-void red() {
-    show();
-    cout << endl;
-
-}
-
 
 void folk() {
     char input;
@@ -457,9 +914,7 @@ void folk() {
 }
 
 void background() {
-    cout << endl;
-    cout << "---------------------------------------------------------------------------------------" << endl;
-    cout << endl;
+    cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
     char content[] = 
         "                    Your favouraite dog was kidnapped to the forest.                   \n"
         "        You are worried about him so you decide to go in the forest to save him.       \n"
@@ -497,15 +952,10 @@ void instruction() {
 void information() {
     cout << "Please enter your name: ";
     cin >> name;
-    cout << endl;
-    cout << "Hello, " << name << ". " << endl;
-    cout << endl;
-    cout << "---------------------------------------------------------------------------------------" << endl;
-    cout << endl;
+    cout << endl << "Hello, " << name << ". " << endl << endl;
+    cout << "---------------------------------------------------------------------------------------" << endl << endl;
     instruction();
-    cout << endl;
-    cout << "---------------------------------------------------------------------------------------" << endl;
-    cout << endl;
+    cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
     cout << "Are you ready to start your adventure? (y: yes / n: no)" << endl;
     char choice;
     cin >> choice;
@@ -536,8 +986,10 @@ void information() {
 
 int main() {
     system("clear");
-    if (life <= 0)
+    if (life <= 0) {
         lose = true;
+        endGame();
+    }
     while (!lose)
         information();
 
