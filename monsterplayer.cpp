@@ -34,7 +34,7 @@ int monsterpos(int &p, int &q, int &r, int &s)
 }
 
 int ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
-    int sizeofballot=50;
+    int sizeofballot=30;
    p=c;
    q=d;
    r=c+sizeofballot;
@@ -50,14 +50,35 @@ bool IsOverlap(monsterposition p, ballotposition q) {
   }
 }
 
-int main(){
+int shoot(){
+  cout<<"Now a monster bird is in front of you. This monster bird is invisible but its body is big. "<<endl;
+  cout<<"You have a cannon and you can use it to shoot to any position"<<endl;
+  cout<<"The monster is 90cm x 90cm while your ballot is 50cm x 50cm"<<endl;
+  cout<<"Imagine there is a grid in front of you with x-axis (0-100) and y-axis (0-100)"<<endl;
+  cout<<"Please input a pair of numbers indicating x-axis and y-axis to show you location of your shooting target"<<endl;
   int c,d;
   cin>>c>>d;
   monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
   ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
-  cout<<IsOverlap(mp,bp)<<endl;
+  if (IsOverlap(mp,bp)){
+    cout<<"You win! "<<endl;
+  }
+  while (!IsOverlap(mp,bp)){
+    cout<<"You lose. Please try again."<<endl;
+    cin>>c>>d;
+    monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
+    ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
+    if (IsOverlap(mp,bp)){
+      cout<<"You win! "<<endl;
+    }
+  }
+  cout<<"These numbers indicate the position of the monster bird"<<endl;
   cout<<mp.minx<<' '<<mp.miny<<endl;
   cout<<mp.maxx<<' '<<mp.maxy<<endl;
+  cout<<"These number are the explosion range of your cannon"<<endl;
   cout<<bp.mina<<' '<<bp.minb<<endl;
   cout<<bp.maxa<<' '<<bp.maxb<<endl;
+}
+int main(){
+  shoot();
 }
