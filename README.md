@@ -8,32 +8,49 @@ Group: 122
 //
 
 Game description:
-- We are planning to create a simple adventure game.- 
-- There are three difficulty levels in total, "Easy", "Normal", "Hard".
-- Every player gets 100% Strength at the beginning.
-- There will be some hearts(to gain strength) and some obstacles(to loss strength).
-- The player should try their best to catch the hearts and avoid the obstacles.
+- We are planning to create a text-based adventure game.
+- Every player gets 100 Strength at the beginning.
+- The aim is to rescue the dog and there will be lots of challenges and choices have to be made by the player.
+- Different Choices may lead to different ending and scenarios.
+- The challenges may cost either the increase or the decrease of strength.
 - Once the strength of player turns 0, the game will end and the player will lose.
 
 //
 
-Level:
-For "Easy", the hearts and obstacles will come out regularly with the same frequency. Every heart can give +10 strength and every obstacles may cost -10 strength.
-
-For "Normal", the frequency of having obstacles will be larger than the frequency of having hearts. Every heart may give +0/+10/+20 strength and every obstacles may cost -10 strength.
-
-For "Hard", an object will come out without showing that it is heart or obstacles. Every time catching the object may randomly increase or decrease the strength.
+During different scenarios in the game, a few simple games are included:
+1. Word and number guessing game (word game will have tips provided to the user to guess)
+2. Rock paper scissors
+3. Blackjack for the final round of the game
 
 //
 
-Win: Passing all three levels 
-- Number of hearts and obstacles will be recorded. Best result will be calculated by subtracting the number of obstacles to the number of hearts
+Win: Passing all the challenges without getting 0 CP 
 
 // 
 
 List of features that we plan to implement:
-- The obstacle and the hearts will appear randomly, which matches with the coding requirement 1. 
-- Separate in three files for three levels and the structure of the game
-- We will have a file for the obstables, a file for hearts, a file for the players and a file for the adventure, which fulfils the requirement 4 and 5. 
-- There will be files to loading the game status, calculate the marks of the player, choose the difficulties etc, which fulfils the requirement 4.
-- The game status will be stored in arrays to let the storage be more organized, which is the requirment 2. 
+1. Requirement 1: Generation of random game sets or events
+- the rock paper scissors and blackjack played by the computer will generate different results
+- player cannot guess the output referring to the last round
+- for word-guessing game, there are in total 3 possible words and it will be randomly given to the player to guess 
+
+2. Requirement 2: Data structure for storing game status
+- arrays and struct will both be used to store the result and input
+- take blackjack as the example:
+  - char array is built for storing the cards in hand of both the player and the dealer
+  - struct is used for determining all the value of cards, total value of cards and the exact poker holded by the player and dealer
+  
+3. Requirement 3: Dynamic memory management
+- vector, pointer operators are implemented in the game
+- vector is used to keep track the items owned by the player
+  - things may be appended or removed due to the decision made by the player
+  - when the task requires player to have some specific items to pass, searching the vector can check whether the player owns the required items or not
+- pointer operators are included in the search of items in bag and blackjack game. 
+  - pointer operators are used to access the value at the address available in the pointer variable 
+    (pass by reference instead of pass by value)
+    
+4. Requirement 3: File input/output
+
+5. Program code with multiple files
+- all the functions are seperated in different files and combined in Makefile
+
