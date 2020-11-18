@@ -17,6 +17,12 @@ Game description:
 
 //
 
+Route: 
+             left ---------   lake      
+forest < (flok of road)                 > meet the wolf
+             right -------- wooden hut
+             
+             
 During different scenarios in the game, a few simple games are included:
 1. Word and number guessing game (word game will have tips provided to the user to guess)
 2. Rock paper scissors
