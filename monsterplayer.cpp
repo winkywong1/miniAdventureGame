@@ -21,7 +21,7 @@ struct ballotposition{
 ballotposition bp;
 
 
-void monsterpos(int &p, int &q, int &r, int &s)
+int monsterpos(int &p, int &q, int &r, int &s)
 {
     int sizeofmonster=90;
     srand(time(NULL));
@@ -32,8 +32,7 @@ void monsterpos(int &p, int &q, int &r, int &s)
     s=b+sizeofmonster;
     return 0;
 }
-
-int ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
+void ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
     int sizeofballot=30;
     p=c;
     q=d;
