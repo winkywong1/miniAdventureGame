@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <unistd.h>
+#include "car.h"
+#include "monsterplayer.h"
 
 using namespace std;
 
@@ -770,6 +772,7 @@ void wolf() {
 }
 
 void lake() {
+    cout<<"In front of the lake, there is a volcano. You should pass the volcano game in order to reach the lake"<<endl;
     show();
     cout << endl;
     char word[] = "You walk to the right side of the road and you see a lake in front of you. \n"
