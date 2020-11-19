@@ -20,6 +20,7 @@ string jump(){
 }
 
 int main(){
+  int count;
   while (!gameover()){
     for (int i=0;i<=5;i++){
       cout<<" "<<endl;
@@ -28,16 +29,12 @@ int main(){
     cout<<"  ####################  ####################  ####################  ####################"<<endl;
     usleep(100000);
     system("clear");
-    char x=getchar();
-    if (x=='a'){jump();}
-    else{
-      for (int i=0;i<=5;i++){
-        cout<<" "<<endl;
-      }
-      cout<<"                                                   "<<"ooooo"<<endl;
+    for (int i=0;i<=5;i++){
+      cout<<" "<<endl;
     }
-      cout<<"#  ####################  ####################  ####################  ###################"<<endl;
-      usleep(100000);
+    cout<<"                                                   "<<"ooooo"<<endl;
+    cout<<"#  ####################  ####################  ####################  ###################"<<endl;
+    usleep(100000);
 
 
     system("clear");
@@ -82,6 +79,33 @@ int main(){
     cout<<"                                                   "<<"ooooo"<<endl;
     cout<<"#######  ####################  ####################  ####################  #############"<<endl;
     usleep(100000);
+
+
+    char x=getchar();
+    if (x=='a'){
+      system("clear");
+      for (int i=0;i<=3;i++){
+        cout<<" "<<endl;
+      }
+      cout<<"                                                   "<<"ooooo"<<endl;
+      for (int i=0;i<=1;i++){
+        cout<<" "<<endl;
+      }
+      cout<<"########  ####################  ####################  ####################  ############"<<endl;
+      usleep(300000);
+    }
+    else{
+      system("clear");
+      for (int i=0;i<=5;i++){
+        cout<<" "<<endl;
+      }
+      cout<<"                                                   "<<"ooooo"<<endl;
+      cout<<"########  ####################  ####################  ####################  ############"<<endl;
+      cout<<"gameOver"<<endl;
+      usleep(1000000);
+    }
+
+
     system("clear");
     for (int i=0;i<=5;i++){
       cout<<" "<<endl;
@@ -110,6 +134,8 @@ int main(){
     cout<<"                                                   "<<"ooooo"<<endl;
     cout<<"###########  ####################  ####################  ####################  #########"<<endl;
     usleep(100000);
+
+    //usleep(100000);
     system("clear");
     for (int i=0;i<=5;i++){
       cout<<" "<<endl;
@@ -174,6 +200,7 @@ int main(){
     cout<<"####################  ####################  ####################  ####################  "<<endl;
     usleep(100000);
     system("clear");
+    count++;
   }
 
 
