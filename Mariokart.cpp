@@ -13,7 +13,7 @@ bool gameover(int i){
   }
 }
 
-string jump(){
+void jump(){
   //system("clear");
   for (int i=0;i<=3;i++){
     cout<<" "<<endl;
@@ -24,7 +24,7 @@ string jump(){
   }
 }
 
-int run(){
+void run(){
   cout<<"Welcome to the volcano land. This is a wonderful land but it has 5 holes. Your mission is to pass all the holes.";
   cout<<"If you want to jump, press certain times of 'a' and then press Enter"<<endl;
   cout<<"YOu just need to make the decision on how many jump you will have"<<endl;
@@ -33,7 +33,7 @@ int run(){
   cout<<"For example, if you want to jump for 3 times during the running, you just need to press aaa and the press Enter before you start running"<<endl;
   cout<<"For example, if you press aabaa, you will lose the game"<<endl;
   cout<<"Ready? The game will start soon"<<endl;
-  usleep(30000000);
+  usleep(300000);
   int count=0;
   while (!gameover(count)){
     for (int i=0;i<=5;i++){
@@ -217,11 +217,10 @@ int run(){
     usleep(100000);
     system("clear");
     count++;
-
+  }
+  
   if (count>5){
     cout<<"You have passed all the hole"<<endl;
-  }
-
   }
 
 }
