@@ -1,0 +1,10 @@
+Welcome to the volcano land.
+This is a wonderful land but it has 5 holes.
+Your mission is to pass all the holes.
+If you want to jump, press certain times of 'a' and then press Enter.
+YOu just need to make the decision on how many jump you will have.
+If you fail to jump in anyone of the 5 holes, you will lose the game.
+You need to make the jumping decision before you start running
+For example, if you want to jump for 3 times during the running, you just need to press aaa and the press Enter before you start running
+For example, if you press aabaa, you will lose the game
+Ready? The game will start soon
