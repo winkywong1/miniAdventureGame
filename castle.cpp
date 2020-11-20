@@ -13,6 +13,16 @@ string name;
 vector<string> bag;
 int life = 100;
 
+//show that the player reach a door
+//ask the player to choose between 3 choices:
+//1.ask for the ghost
+//2.directly break into the room
+//3.give up
+//If the player chooses option one, he/she will be checked whether the ghost is his/her friend
+//If not his/her friend, the player is not able to choose option one
+//If the ghost is his/her friends, the player will be brought to the final stage
+//If the player chooses option two, he/she will decrease in cp value
+//If the player chooses option three, he/she will directly end the game and considered as a loser
 void castleDoor() {
     show();
     cout << endl;
@@ -75,6 +85,9 @@ void castleDoor() {
     sleep(2);
 }
 
+//allow the player to choose if he/she will choose to make friend with the ghost
+//If the player choose yes, ghost will follow him/her
+//If the player choose no, the player will face a reduction in CP value by 10
 void withGhost() {
     cout << "Will you invite her to join your adventure? (y: yes / n: no)" << endl;
     char answer;
@@ -97,7 +110,9 @@ void withGhost() {
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
 }
-
+//allow the player to guess a number
+//If the player guess an even number, he/she will be brought back to the function withGhost
+//Otherwise, decrease the player 30 in cp value
 void castleGhost() {
     cout << endl;
     char word[] = "The ghost said, \"I am so bored. I want you to play a game with me.\" \n"
@@ -137,7 +152,7 @@ void castleGhost() {
     }
     castleDoor();
 }
-
+//direct the player to the ghost
 void castle() {
     show();
     cout << endl;
@@ -152,7 +167,10 @@ void castle() {
     castleGhost();
     cout << endl;
 }
-
+//use dynamic memory to store several words
+//randomly generate a number to become the index of the dynamic memory
+//add 1 to the variable trial in each loop to count the trial number
+//there will be an additional tips after each failed trial
 void guessKey() {
     show();
     cout << endl;
@@ -310,6 +328,9 @@ void guessKey() {
     cout << endl;
 }
 
+//check if the player has the key by accessing the dynamic memory
+//allow the player to enter the castle if key is present
+//allow the player to choose to guess the word to get the key or directly give up
 void castleIn() {
     show();
     cout << endl;
