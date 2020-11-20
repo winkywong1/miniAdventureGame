@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <unistd.h>
+#include <fstream>
 
 using namespace std;
 
@@ -9,10 +10,6 @@ string name;
 vector<string> bag;
 int life = 100;
 bool lose;
-
-char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
-int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
-const int maxNumOfPoker = 5;
 
 void show() {
     cout << endl;
@@ -45,7 +42,11 @@ void endGame() {
     cout << endl << "                             - - G A M E     O V E R - -" << endl;
 }
 
-// 
+// finalStage
+
+char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
+int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
+const int maxNumOfPoker = 5;
 
 void calBlackjack(int num, char number[maxNumOfPoker], char a, int *mina, int *maxa, int *minto, int *maxto) {
     number[num] = a;
@@ -105,15 +106,23 @@ void blackjack() {
     struct player
     {
         char card1, card2, card3, card4, card5;
-        int mintotal = 0; int maxtotal = 0;
-        int minVcard1 = 0; int maxVcard1 = 0;
-        int minVcard2 = 0; int maxVcard2 = 0;
-        int minVcard3 = 0; int maxVcard3 = 0;
-        int minVcard4 = 0; int maxVcard4 = 0;
-        int minVcard5 = 0; int maxVcard5 = 0;
+        int mintotal, maxtotal, minVcard1, maxVcard1, minVcard2, maxVcard2, minVcard3, maxVcard3, minVcard4, maxVcard4, minVcard5, maxVcard5;
     };    
 
     player dealer, user;
+    dealer.mintotal = 0;    dealer.maxtotal = 0;
+    dealer.minVcard1 = 0;    dealer.maxVcard1 = 0;
+    dealer.minVcard2 = 0;    dealer.maxVcard2 = 0;
+    dealer.minVcard3 = 0;    dealer.maxVcard3 = 0;
+    dealer.minVcard4 = 0;    dealer.maxVcard4 = 0;
+    dealer.minVcard5 = 0;    dealer.maxVcard5 = 0;
+
+    user.mintotal = 0;    user.maxtotal = 0;
+    user.minVcard1 = 0;    user.maxVcard1 = 0;
+    user.minVcard2 = 0;    user.maxVcard2 = 0;
+    user.minVcard3 = 0;    user.maxVcard3 = 0;
+    user.minVcard4 = 0;    user.maxVcard4 = 0;
+    user.minVcard5 = 0;    user.maxVcard5 = 0;
 
     dealer.card1 = poker[rand() % 13];
     dealer.card2 = poker[rand() % 13];
@@ -274,32 +283,32 @@ void blackjack() {
     cout << endl;
     sleep(1);
     cout << "---------------------------------------------------------------------------------------" << endl << endl;
-    if (Ubust && Dbust) {
+    if ((Ubust) && (Dbust)) {
         cout << "Bad guy said, \"Although I busted, you are still counted as lose, poor guy.\"" << endl;
         cout << "\"Say bye to your dog!\"" << endl << endl;
         endGame();
     }
-    if (Ubust && !Dbust) {
+    if ((Ubust) && (!Dbust)) {
         cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
         endGame();
     }
-    if (!Ubust && Dbust) {
+    if ((!Ubust) && (Dbust)) {
         cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
         cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
         winGame();
     }
 
-    if (!Ubust && !Dbust) {
+    if ((!Ubust) && (!Dbust)) {
         if ((userWins && !dealerWins) || (dealer.mintotal > user.mintotal)) {
             cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
             cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
             winGame();
         }
-        else if ((!userWins && dealerWins) || (dealer.mintotal < user.mintotal)) {
+        if ((!userWins && dealerWins) || (dealer.mintotal < user.mintotal)) {
             cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
             endGame();
         }
-        else if ((userWins && dealerWins) || (dealer.mintotal == user.mintotal)) {
+        if ((userWins && dealerWins) || (dealer.mintotal == user.mintotal)) {
             cout << "Bad guy said, \"Okay... It\'s a draw...\"" << endl;
             cout << "\"But we have make a deal that only playing one round.\"" << endl;
             cout << "\"Fine, lucky you. Just take your dog and go away.\"" << endl << endl;
@@ -325,7 +334,7 @@ void finalStage() {
     blackjack();
 }
 
-//
+// castle
 
 void castleDoor() {
     show();
@@ -379,7 +388,12 @@ void castleDoor() {
         cout << "Your CP is decreased by 20." << endl;
         life -= 20;
         cout << "However, you finally see your dog! You reach the last challenge." << endl;
-        finalStage();
+        if (life <= 0) {
+            cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+            endGame();
+        }
+        else
+            finalStage();
     }
     if (option == 3) {
         cout << "You give up saving your dog." << endl;
@@ -410,6 +424,8 @@ void withGhost() {
         life -= 10;
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
+    if (life <= 0)
+        endGame();
 }
 
 void castleGhost() {
@@ -448,6 +464,10 @@ void castleGhost() {
         cout << endl;
         life -= 30;
         cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
+        if (life <= 0) {
+            cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+            endGame();
+        }
     }
     castleDoor();
 }
@@ -464,7 +484,6 @@ void castle() {
         usleep(3000);
     }
     castleGhost();
-    cout << endl;
 }
 
 void guessKey() {
@@ -670,7 +689,7 @@ void castleIn() {
     cout << endl;
 }
 
-//
+// monsterPlay
 
 struct monsterposition{
     int minx, miny, maxx, maxy;
@@ -684,7 +703,7 @@ ballotposition bp;
 
 void monsterpos(int &p, int &q, int &r, int &s)
 {
-    int sizeofmonster = 50;
+    int sizeofmonster = 40;
     srand(time(NULL));
     int a=rand()%100, b=rand()%100;
     p = a - (sizeofmonster/2);
@@ -693,7 +712,7 @@ void monsterpos(int &p, int &q, int &r, int &s)
     s = b + (sizeofmonster/2);
 }
 void ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
-    int sizeofballot=30;
+    int sizeofballot = 30;
     p = c - (sizeofballot/2);
     q = d - (sizeofballot/2);
     r = c + (sizeofballot/2);
@@ -715,7 +734,7 @@ void shoot(){
     char word[] = "Now a monster bird is in front of you. This monster bird is invisible but its body is big. \n"
     "You get a cannon. The cannon contains 5 ballots and you can use it to shoot to any position.\n"
     "Successfully hitting the monster is an advantage for your adventure journey.\n"
-    "The monster is 50cm x 50cm while your ballot is 30cm x 30cm.\n"
+    "The monster is 40cm x 40cm while your ballot is 30cm x 30cm.\n"
     "Imagine there is a grid in front of you with x-axis (0-100) and y-axis (0-100).\n"
     "Please input a pair of numbers indicating x-axis and y-axis of the center to show you location of your shooting target.\n";
 
@@ -725,24 +744,22 @@ void shoot(){
     }
     
     int c,d;
-    cout << "x-axis: ";
-    cin >> c;
-    cout << endl << "y-axis: ";
-    cin >> d;
+    cout << "x-axis & y-axis: ";
+    cin >> c >> d;
     monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
     ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
     
-    if (IsOverlap(mp,bp))
+    if (IsOverlap(mp,bp)) {
         cout << "You win! You get a key on the hand of the monster. " << endl;
+        bag.push_back("key");
+    }
 
     int trial = 1;
     while (!IsOverlap(mp,bp)){
         cout << "You fail to hit the monster! You lose 10 CP. Please try again." << endl;
         life -= 10;
-        cout << "x-axis: ";
-        cin >> c;
-        cout << endl << "y-axis: ";
-        cin >> d;
+        cout << "x-axis & y-axis: ";
+        cin >> c >> d;
         monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
         ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
         if (IsOverlap(mp,bp)){
@@ -753,6 +770,7 @@ void shoot(){
             trial += 1;
         }
         if (trial == 5) {
+            life -= 10;
             cout << endl << "You fail to hit the monster and it flies away." << endl;
             break;
         }
@@ -764,10 +782,14 @@ void shoot(){
     cout << "Top right corner:   x-max = " << bp.maxa << " ; y-max = " << bp.maxb << endl;
     cout << "Bottom left corner: x-min = " << bp.mina << " ; y-max = " << bp.minb << endl;
     cout << endl << "Your CP now is " << life << ". " << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     castleIn();
 }
 
-//
+// wolf
 
 void defense() {
     char answer;
@@ -800,7 +822,7 @@ void defense() {
             cout << cD[i];
             usleep(3000);
         }
-        life -= 20;
+        life -= 10;
     }
     else {
         char nD[] = "You choose not to fight with the wolf so you are seriously injuried. \n"
@@ -810,9 +832,13 @@ void defense() {
             cout << nD[k];
             usleep(3000);
         }
-        life -= 40;
+        life -= 30;
     }
     cout << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     shoot();
 }
 
@@ -831,18 +857,17 @@ void wolf() {
     cin >> answer;
     cout << endl;
     bool haveFood;
-    vector<string>::iterator find;
-    for (find = bag.begin(); find != bag.end(); find++) {
-        if (answer == 'y') {
-            if ((*find == "steak") || (*find == "fish")) {
+    if (answer == 'n') {
+        haveFood = false;
+    }
+    if (answer == 'y') {
+        vector<string>::iterator find;
+        for (find = bag.begin(); find != bag.end(); find++) {
+            if ((*find == "steak") || (*find == "fish")) 
                 haveFood = true;
-            }
-            else {
+            else
                 haveFood = false;
-            }
         }
-        if (answer == 'n') 
-            haveFood = false;
     }
 
     if (haveFood) {
@@ -853,7 +878,7 @@ void wolf() {
             cout << food[j];
             usleep(3000);
         }
-        castleIn();
+        shoot();
     }
     if (!haveFood) {
         char nofood[] = "You have no food to give him!! \n"
@@ -868,7 +893,7 @@ void wolf() {
     cout << endl;
 }
 
-// 
+// path
 
 void lake() {
     show();
@@ -944,8 +969,13 @@ void lake() {
         bag.pop_back();
     }
     cout << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     wolf();
 }
+
 void woodhouse() {
     show();
     cout << endl;
@@ -989,8 +1019,13 @@ void woodhouse() {
         life -= 20;
     }
     cout << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     wolf();
 }
+
 void folk() {
     char input;
     char word[] = "You just walk into the forest and meet your first folk in the road (literally).\n"
@@ -1012,7 +1047,7 @@ void folk() {
         lake();
 }
 
-//
+// start
 
 void background() {
     cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
@@ -1075,8 +1110,19 @@ void information() {
     background();
 }
 
+// main
+
 int main() {
+	ofstream fout;
+    fout.open("result.txt", ios::app);
+
+    if ( fout.fail() ) {
+        cout << "Error in file opening!" << endl;
+        exit(1);
+    }
+
     system("clear");
+
     if (life <= 0) {
         lose = true;
         endGame();
@@ -1084,5 +1130,12 @@ int main() {
     while (!lose)
         information();
 
+    fout << "Name" << ": " << name << endl;
+    if (lose)
+        fout << "Result: " << "lose the game with " << life << " CP left." << endl;
+    if (!lose)
+        fout << "Result: " << "win the game with " << life << " CP left." << endl;
+    fout.close();
+    
     return 0;
 }
