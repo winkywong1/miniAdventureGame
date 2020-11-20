@@ -132,7 +132,9 @@ void woodhouse() {
     cout << endl;
     wolf();
 }
-
+//show that the player is facing a fork.
+//allow the player to choose left or right
+//direct the player to the lake and the woodhouse respectively
 void folk() {
     char input;
     char word[] = "You just walk into the forest and meet your first fork in the road (literally).\n"
