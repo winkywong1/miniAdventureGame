@@ -4,6 +4,6 @@
 
 void lake();
 void woodhouse();
-void folk();
+void forkRoad();
 
 #endif
