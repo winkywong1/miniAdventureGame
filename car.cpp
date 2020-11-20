@@ -1,6 +1,7 @@
 # include <iostream>
 # include <unistd.h>
 # include <cstdio>
+# include <fstream>
 
 using namespace std;
 
@@ -25,18 +26,21 @@ void jump(){
 }
 
 void run(){
-  cout<<"Welcome to the volcano land. This is a wonderful land but it has 5 holes. Your mission is to pass all the holes.";
-  cout<<"If you want to jump, press certain times of 'a' and then press Enter"<<endl;
-  cout<<"YOu just need to make the decision on how many jump you will have"<<endl;
-  cout<<"If you fail to jump in anyone of the 5 holes, you will lose the game"<<endl;
-  cout<<"You need to make the jumping decision before you start running"<<endl;
-  cout<<"For example, if you want to jump for 3 times during the running, you just need to press aaa and the press Enter before you start running"<<endl;
-  cout<<"For example, if you press aabaa, you will lose the game"<<endl;
-  cout<<"Ready? The game will start soon"<<endl;
-  usleep(300000);
+  ifstream fin;
+  fin.open("car1.txt");
+  if (fin.fail()){
+    cout<<"error in file opening"<<endl;
+    exit(1);
+  }
+  string msg;
+  while (getline(fin,msg)){
+    cout<<msg<<endl;
+  }
+  fin.close();
+  usleep(3000000);
   int count=0;
   //Each while loop represent several continuous pictures appearing one-by-one to create the animation effects
-  //The animation will repeat for 5 times. 
+  //The animation will repeat for 5 times.
   //The text shown in the interface will be cleared periodically and new pictre will appear immediately
   while (!gameover(count)){
     for (int i=0;i<=5;i++){
