@@ -9,17 +9,24 @@ using namespace std;
 
 vector<string> bag;
 int life = 100;
-
+//Assume that the monster is a rectangle
+//The rectangle has 4 vertices
+//Create a structure to store the maximum and minimum x-coordinate and y-coordinates of the 4 vertices of the rectangle respectively 
 struct monsterposition{
     int minx, miny, maxx, maxy;
 };
 monsterposition mp;
 
+//Assume that the ballot is a rectangle
+//The rectangle has 4 vertices
+//Create a structure to store the maximum and minimum x-coordinate and y-coordinates of the 4 vertices of the rectangle respectively 
 struct ballotposition{
     int mina, minb, maxa, maxb;
 };
 ballotposition bp;
 
+//randomly generate the midpoint of the monster and 
+//compute the maximum and minimum x-coordinate and y-coordinates of the 4 vertices of the monster respectively
 void monsterpos(int &p, int &q, int &r, int &s)
 {
     int sizeofmonster = 50;
@@ -30,6 +37,9 @@ void monsterpos(int &p, int &q, int &r, int &s)
     r = a + (sizeofmonster/2);
     s = b + (sizeofmonster/2);
 }
+
+//accept the inputs of the player which indicate the midpoint of the ballot and 
+//compute the maximum and minimum x-coordinate and y-coordinates of the 4 vertices of the ballot respectively
 void ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
     int sizeofballot=30;
     p = c - (sizeofballot/2);
@@ -38,6 +48,10 @@ void ballotpos(int &p,int &q,int &r,int &s,int &c,int &d){
     s = d + (sizeofballot/2);
 }
 
+//To check whether the minimum x-coordiates of one rectangle is higher than the corresponding maximum x-coordinates of another rectangle
+//To check whether the minimum y-coordiates of one rectangle is higher than the corresponding maximum y-coordinates of another rectangle
+//If yes, it indicate that the two rectangle is not overlapped
+//If no, it indicate that the two rectangle is overlapped
 bool IsOverlap(monsterposition p, ballotposition q) {
   if ( p.minx > q.maxa || p.miny > q.maxb || q.mina > p.maxx || q.minb > p.maxy){
     return false;
@@ -69,7 +83,10 @@ void shoot(){
     cin >> d;
     monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
     ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
-    
+    //The player has 5 ballots. 
+    //If the 5 ballots all cannot hit the monster, the player will lose
+    //If any one of the ballots hit the monster, the player win
+    //Tell the player also the position of the ballot and position of the monster
     if (IsOverlap(mp,bp))
         cout << "You win! You get a key on the hand of the monster. " << endl;
 
