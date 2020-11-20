@@ -23,7 +23,6 @@ void show() {
 }
 
 void winGame() {
-    lose = false;
     cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" << endl << endl;
     cout << "                You successfully rescue your dog!!!!! Congraduations!!!!               " << endl;
@@ -44,7 +43,6 @@ void winGame() {
 }
 
 void endGame() {
-    lose = true;
     cout << endl << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
     cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl << endl;;
     cout << "                              You fail to save your dog.                               " << endl;
@@ -159,7 +157,11 @@ void blackjack() {
     
     cout << "-------------------------------------- Dealer ---------------------------------------" << endl << endl;
     cout << "Bad guy said, \"Let me be the dealer.\"" << endl;
-    cout << "\"I have got a " << dealer.card1 << ".\"" << endl << endl;
+    cout << "\"I have got a ";
+    if (dealer.card1 == 'x')
+        cout << "10.\"" << endl << endl;
+    else 
+        cout << dealer.card1 << ".\"" << endl << endl;
     cout << "Now is your turn to play." << endl << endl;
     sleep(1);
     cout << "-------------------------------------- Round " << round << " --------------------------------------" << endl << endl;
@@ -255,6 +257,8 @@ void blackjack() {
 
     if (dealer.mintotal < 17)  
         dealerHits = true;
+    if (dealer.mintotal >= 17)
+        dealerHits = false;
 
     while (dealerHits && !Dbust) {
         if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
@@ -825,7 +829,7 @@ void shoot(){
     cout << "Bottom left corner: x-min = " << bp.mina << " ; y-max = " << bp.minb << endl;
     cout << endl << "Your CP now is " << life << ". " << endl;
     if (life <= 0) {
-        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+        cout << endl << "- - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - " << endl;
         endGame();
     }
     castleIn();
@@ -927,6 +931,7 @@ void wolf() {
             cout << food[j];
             usleep(3000);
         }
+        bag.pop_back();
         shoot();
     }
     if (!haveFood) {
@@ -1163,9 +1168,7 @@ void information() {
 
 int main() {
     system("clear");
-
-    while (!lose)
-        information();
+    information();
     
     return 0;
 }
