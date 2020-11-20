@@ -3,15 +3,19 @@
 #include <vector>
 #include <string>
 #include "path.h"
+#include "endGame.h"
 #include "show.h"
 #include "wolf.h"
 using namespace std;
 
 vector<string> bag;
 int life = 100;
-//implementing rock-paper-scissors game
-//randomly assigned an outcome from {rock, paper, scissors} to the fairy
-//compare the fairy decision and the player's input to determine the winner
+
+// implementing rock-paper-scissors game
+// randomly assigned an outcome from {rock, paper, scissors} to the fairy
+// compare the fairy decision and the player's input to determine the winner
+// winning the fairy can get back the stick and gain a fish
+// losing the game will lead to the decrease of CP and lose the stick
 void lake() {
     show();
     cout << endl;
@@ -74,7 +78,7 @@ void lake() {
 
     if (userWin) {
         cout << "Fairy plays " << fairyDecision << endl;
-        cout << "Fairy said, \"Congraduations!! Here is your stick. Also, this fish is a bonus for you.\"" << endl;
+        cout << "Fairy said, \"Congratulations!! Here is your stick. Also, this fish is a bonus for you.\"" << endl;
         bag.push_back("fish");
     }
     if (!userWin) {
@@ -86,11 +90,15 @@ void lake() {
         bag.pop_back();
     }
     cout << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     wolf();
 }
-//
-//let the player face a boy crying
-//ask the player if the player comfort him
+
+
+// let the player make decision between comforting the boy or ignoring him when facing the crying boy 
 void woodhouse() {
     show();
     cout << endl;
@@ -106,7 +114,8 @@ void woodhouse() {
     cout << "Would you comfort him and see if anything can help? (y: yes / n: no)" << endl;
     cin >> answer;
     cout << endl;
-//Make sure that the player has valid input
+
+    // ensure valid input
     while (answer != 'y' && answer != 'n') {
         cout << "Invalid Input! Please answer again.\n";
         cout << "Your response: (y: yes / n: no) ";
@@ -134,12 +143,16 @@ void woodhouse() {
         life -= 20;
     }
     cout << endl;
+    if (life <= 0) {
+        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
+        endGame();
+    }
     wolf();
 }
-//show that the player is facing a fork.
-//allow the player to choose left or right
-//direct the player to the lake and the woodhouse respectively
-void folk() {
+
+
+// direct the player to either the lake or the woodhouse respectively by choosing left or right side of fork in the road
+void forkRoad() {
     char input;
     char word[] = "You just walk into the forest and meet your first fork in the road (literally).\n"
         "Now, go left or right (l: left / r: right)? ";
@@ -159,3 +172,4 @@ void folk() {
     if (input == 'r')
         lake();
 }
+
