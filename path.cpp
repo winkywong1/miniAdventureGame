@@ -135,7 +135,7 @@ void woodhouse() {
 
 void folk() {
     char input;
-    char word[] = "You just walk into the forest and meet your first folk in the road (literally).\n"
+    char word[] = "You just walk into the forest and meet your first fork in the road (literally).\n"
         "Now, go left or right (l: left / r: right)? ";
     for (int i = 0; i < sizeof(word); i++) {
         cout << word[i];
