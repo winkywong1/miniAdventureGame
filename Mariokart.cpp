@@ -35,6 +35,9 @@ void run(){
   cout<<"Ready? The game will start soon"<<endl;
   usleep(300000);
   int count=0;
+  //Each while loop represent several continuous pictures appearing one-by-one to create the animation effects
+  //The animation will repeat for 5 times. 
+  //The text shown in the interface will be cleared periodically and new pictre will appear immediately
   while (!gameover(count)){
     for (int i=0;i<=5;i++){
       cout<<" "<<endl;
@@ -218,7 +221,7 @@ void run(){
     system("clear");
     count++;
   }
-  
+  //after 5 times of looping, if the player order 5 jump, he/she will win
   if (count>5){
     cout<<"You have passed all the hole"<<endl;
   }
