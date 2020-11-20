@@ -13,16 +13,17 @@ string name;
 vector<string> bag;
 int life = 100;
 
-//show that the player reach a door
-//ask the player to choose between 3 choices:
-//1.ask for the ghost
-//2.directly break into the room
-//3.give up
-//If the player chooses option one, he/she will be checked whether the ghost is his/her friend
-//If not his/her friend, the player is not able to choose option one
-//If the ghost is his/her friends, the player will be brought to the final stage
-//If the player chooses option two, he/she will decrease in cp value
-//If the player chooses option three, he/she will directly end the game and considered as a loser
+
+// show that the player reach a locked door
+// ask the player to choose between 3 choices:
+// 1.ask help from the ghost
+// 2.directly break into the room
+// 3.give up
+// If the player chooses option 1, he/she will be checked whether the ghost is his/her friend
+// If not his/her friend, the player is not able to choose option one
+// If the ghost is his/her friend, the player will be brought to the final stage
+// If the player chooses option 2, he/she will decrease in CP value in exchange
+// If the player chooses option 3, he/she will directly end the game and considered as a loser
 void castleDoor() {
     show();
     cout << endl;
@@ -36,7 +37,7 @@ void castleDoor() {
     char op[] = "You now have three options: \n"
         "1. ask the ghost for help if she is your accompany \n"
         "2. break into the room \n"
-        "3. frustrated and give up to save your dog \n";
+        "3. feel frustrated and give up to save your dog \n";
     for (int j = 0; j < sizeof(op); j++) {
         cout << op[j];
         usleep(3000);
@@ -53,18 +54,18 @@ void castleDoor() {
     cout << endl << "You will choose option 1, 2 or 3? (1 / 2 / 3)" << endl;
     int option;
     cin >> option;
-    while ((option != 1) && (option != 2) && (option != 3)) {
+    while (option != 1 && option != 2 && option != 3) {
         cout << "Invalid Input! Please answer again.\n";
         cout << "You will choose option 1, 2 or 3? (1 / 2 / 3)";
         cin >> option;
     }
-    if ((option == 1) && haveG) {
+    if (option == 1 && haveG) {
         cout << "The ghost passes through the wall and unlocks the door inside the room." << endl;
         cout << "You can finally get in." << endl;
         cout << "Your dog is excited about seeing you and you reach the last challenge." << endl;
         finalStage();
     }
-    while ((option == 1) && !haveG) {
+    while (option == 1 && !haveG) {
         cout << "You are not staying with the ghost so you can't choose option 1.\n";
         cout << "Please choose option 2 or 3. Will you choose 2 or 3? (2 / 3)\n";
         cin >> option;
@@ -75,7 +76,12 @@ void castleDoor() {
         cout << "Your CP is decreased by 20." << endl;
         life -= 20;
         cout << "However, you finally see your dog! You reach the last challenge." << endl;
-        finalStage();
+        if (life <= 0) {
+            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+            endGame();
+        }
+        else
+            finalStage();
     }
     if (option == 3) {
         cout << "You give up saving your dog." << endl;
@@ -85,9 +91,10 @@ void castleDoor() {
     sleep(2);
 }
 
-//allow the player to choose if he/she will choose to make friend with the ghost
-//If the player choose yes, ghost will follow him/her
-//If the player choose no, the player will face a reduction in CP value by 10
+
+// allow the player to choose if he/she makes friend with the ghost
+// If the player choose yes, ghost will follow him/her
+// If the player choose no, the player will face a reduction in CP value by 10
 void withGhost() {
     cout << "Will you invite her to join your adventure? (y: yes / n: no)" << endl;
     char answer;
@@ -109,10 +116,16 @@ void withGhost() {
         life -= 10;
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
+    if (life <= 0) {
+        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+        endGame();
+    }
 }
-//allow the player to guess a number
-//If the player guess an even number, he/she will be brought back to the function withGhost
-//Otherwise, decrease the player 30 in cp value
+
+
+// allow the player to guess a number
+// If the player guess an even number, the ghost will ask the player to be friend or not (withGhost)
+// Otherwise, decrease the player 30 in CP value
 void castleGhost() {
     cout << endl;
     char word[] = "The ghost said, \"I am so bored. I want you to play a game with me.\" \n"
@@ -149,10 +162,16 @@ void castleGhost() {
         cout << endl;
         life -= 30;
         cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
+        if (life <= 0) {
+            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+            endGame();
+        }
     }
     castleDoor();
 }
-//direct the player to the ghost
+
+
+// direct the player to the ghost right after the player gets into the castle
 void castle() {
     show();
     cout << endl;
@@ -165,12 +184,17 @@ void castle() {
         usleep(3000);
     }
     castleGhost();
-    cout << endl;
 }
-//use dynamic memory to store several words
-//randomly generate a number to become the index of the dynamic memory
-//add 1 to the variable trial in each loop to count the trial number
-//there will be an additional tips after each failed trial
+
+
+// use vector(dynamic memory) to store three different words
+// randomly generate a number to become the index of the vector
+// maximum 3 trials are given
+// add 1 to the number of trial in each loop to count the trial number
+// once the number of trial reaches 3, the while loop will end
+// there will be an additional tip after each failed trial
+// if the player is able to guess the hidden word, the key for entering the castle will be provided
+// otherwise, the player will lose the game since he/she is not able to enter the castle by using the key
 void guessKey() {
     show();
     cout << endl;
@@ -312,7 +336,7 @@ void guessKey() {
     }
     cout << endl;
     if (correct) {
-        char con[] = "Congraduations! Your answer is correct! Awesome. \n"
+        char con[] = "Congratulations! Your answer is correct! Awesome. \n"
             "You can use your key to go into the castle now.\n";
         for (int j = 0; j < sizeof(con); j++) {
             cout << con[j];
@@ -328,9 +352,11 @@ void guessKey() {
     cout << endl;
 }
 
-//check if the player has the key by accessing the dynamic memory
-//allow the player to enter the castle if key is present
-//allow the player to choose to guess the word to get the key or directly give up
+
+
+// check if the player has the key by accessing the bag (a vector to store items owned by the player in bag)
+// allow the player to enter the castle if key is present
+// allow the player to choose to play word-guessing game to get the key or directly give up
 void castleIn() {
     show();
     cout << endl;
@@ -356,6 +382,7 @@ void castleIn() {
     if (haveKey) {
         cout << "Woohooo~ You successfully use the key to get in the castle." << endl;
         cout << "You are ready to save your dog!" << endl;
+        bag.pop_back();
         castle();
     }
     else {
