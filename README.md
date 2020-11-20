@@ -18,15 +18,18 @@ Game description:
 //
 
 Route: 
-             left ---------   lake      
-forest < (flok of road)                 > meet the wolf
-             right -------- wooden hut
-             
-             
+1. fork in the road
+2. lake / woodhouse
+3. wolf
+4. monster game
+5. castle
+6. final mission
+                       
 During different scenarios in the game, a few simple games are included:
 1. Word and number guessing game (word game will have tips provided to the user to guess)
 2. Rock paper scissors
-3. Blackjack for the final round of the game
+3. Monster game
+4. Blackjack for the final round of the game
 
 //
 
@@ -56,7 +59,8 @@ List of features that we plan to implement:
     (pass by reference instead of pass by value)
     
 4. Requirement 3: File input/output
+- output the result of the game (player's name, success/failure, CP left) to a file "result.txt"
 
 5. Program code with multiple files
-- all the functions are seperated in different files and combined in Makefile
+- all the functions are seperated in different files by categories and combined in Makefile
 
