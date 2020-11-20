@@ -9,7 +9,9 @@ using namespace std;
 
 vector<string> bag;
 int life = 100;
-
+//implementing rock-paper-scissors game
+//randomly assigned an outcome from {rock, paper, scissors} to the fairy
+//compare the fairy decision and the player's input to determine the winner
 void lake() {
     show();
     cout << endl;
@@ -86,7 +88,9 @@ void lake() {
     cout << endl;
     wolf();
 }
-
+//
+//let the player face a boy crying
+//ask the player if the player comfort him
 void woodhouse() {
     show();
     cout << endl;
@@ -102,7 +106,7 @@ void woodhouse() {
     cout << "Would you comfort him and see if anything can help? (y: yes / n: no)" << endl;
     cin >> answer;
     cout << endl;
-
+//Make sure that the player has valid input
     while (answer != 'y' && answer != 'n') {
         cout << "Invalid Input! Please answer again.\n";
         cout << "Your response: (y: yes / n: no) ";
