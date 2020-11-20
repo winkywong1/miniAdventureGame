@@ -7,10 +7,16 @@
 #include "endGame.h"
 using namespace std;
 
+// char array poker is used to indicate the poker card held by the player
+// int array pokerNum is used to indicate the face value of the poker
+// maxNumOfPoker is 5 which is the maximum number of card owned bu the player
 char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
 int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
 const int maxNumOfPoker = 5;
 
+// calculate the minimum value and maximum value of the card according to the poker got by the player
+// since getting Ace can count the value as 1 or 11, there will be minimum and maximum value
+// minimum and maximum value of the total value of all the cards held by the player to check whether it is fewer than, larger than or equal to 21
 void calBlackjack(int num, char number[maxNumOfPoker], char a, int *mina, int *maxa, int *minto, int *maxto) {
     number[num] = a;
     srand(time(NULL));
@@ -34,6 +40,13 @@ void calBlackjack(int num, char number[maxNumOfPoker], char a, int *mina, int *m
     *maxto += *maxa;
 }
 
+// introduce the game "Blackjack" to the player to ensure the player knows how to play the game
+// all the cards given to the dealer and player are in random. different round may have different card received.
+// the player can choose to hit or stand by know his/her own card value
+// once the player finished, it is dealer's turn to show his card to the player and choose hit or stand
+// dealer has to hit when the value is smaller than 17, otherwise he has to stand
+// if the dealer wins, the player cannot save his/her dog and loses the game
+// if the player wins or it is a draw, the player still can win and save the dog, which lead to the end of the game
 void blackjack() {
     cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
     cout << "                                << B L A C K J A C K >>                                " << endl << endl;
@@ -99,7 +112,11 @@ void blackjack() {
     
     cout << "-------------------------------------- Dealer ---------------------------------------" << endl << endl;
     cout << "Bad guy said, \"Let me be the dealer.\"" << endl;
-    cout << "\"I have got a " << dealer.card1 << ".\"" << endl << endl;
+    cout << "\"I have got a ";
+    if (dealer.card1 == 'x')
+        cout << "10.\"" << endl << endl;
+    else 
+        cout << dealer.card1 << ".\"" << endl << endl;
     cout << "Now is your turn to play." << endl << endl;
     sleep(1);
     cout << "-------------------------------------- Round " << round << " --------------------------------------" << endl << endl;
@@ -195,6 +212,8 @@ void blackjack() {
 
     if (dealer.mintotal < 17)  
         dealerHits = true;
+    if (dealer.mintotal >= 17)
+        dealerHits = false;
 
     while (dealerHits && !Dbust) {
         if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
@@ -246,40 +265,58 @@ void blackjack() {
     cout << endl;
     sleep(1);
     cout << "---------------------------------------------------------------------------------------" << endl << endl;
-    if (Ubust && Dbust) {
-        cout << "Bad guy said, \"Although I busted, you are still counted as lose, poor guy.\"" << endl;
-        cout << "\"Say bye to your dog!\"" << endl << endl;
-        endGame();
-    }
-    if (Ubust && !Dbust) {
-        cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
-        endGame();
-    }
-    if (!Ubust && Dbust) {
-        cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
-        cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
-        winGame();
-    }
-
-    if (!Ubust && !Dbust) {
-        if ((userWins && !dealerWins) || (dealer.mintotal > user.mintotal)) {
-            cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
-            cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
-            winGame();
+    if ((!Ubust) && (!Dbust)) {
+        if (!userWins && !dealerWins) {
+            if (dealer.mintotal > user.mintotal) {
+                cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
+                endGame();
+            }
+            if (dealer.mintotal < user.mintotal) {
+                cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
+                cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
+                winGame();
+            }
+            if (dealer.mintotal == user.mintotal) {
+                cout << "Bad guy said, \"Okay... It\'s a draw...\"" << endl;
+                cout << "\"But we have make a deal that only playing one round.\"" << endl;
+                cout << "\"Fine, lucky you. Just take your dog and go away.\"" << endl << endl;
+                winGame();
+            } 
         }
-        else if ((!userWins && dealerWins) || (dealer.mintotal < user.mintotal)) {
+        if (userWins && !dealerWins) {
+                cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
+                cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
+                winGame();
+        }
+        if (!userWins && dealerWins) {
             cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
             endGame();
         }
-        else if ((userWins && dealerWins) || (dealer.mintotal == user.mintotal)) {
+        if (userWins && dealerWins) {
             cout << "Bad guy said, \"Okay... It\'s a draw...\"" << endl;
             cout << "\"But we have make a deal that only playing one round.\"" << endl;
             cout << "\"Fine, lucky you. Just take your dog and go away.\"" << endl << endl;
             winGame();
         }
     }
+    if ((Ubust) && (Dbust)) {
+        cout << "Bad guy said, \"Although I busted, you are still counted as lose, poor guy.\"" << endl;
+        cout << "\"Say bye to your dog!\"" << endl << endl;
+        endGame();
+    }
+    if ((Ubust) && (!Dbust)) {
+        cout << "Bad guy said, \"Ha ha ha, you lose little boy. Say bye to your dog.\"" << endl << endl;
+        endGame();
+    }
+    if ((!Ubust) && (Dbust)) {
+        cout << "Bad guy said, \"I can\'t believe that you beat me. No one ever wins me.\"" << endl;
+        cout << "\"Okay, fine. You win. You can take your dog away.\"" << endl << endl;
+        winGame();
+    }
 }
 
+// after different paths or challenges, the player finally sees the bad guy who kidnapped the dog
+// it drives to the game Blackjack as the final mission
 void finalStage() {
     show();
     cout << endl;
