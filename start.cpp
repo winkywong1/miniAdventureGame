@@ -25,7 +25,7 @@ void background() {
     cout << "---------------------------------------------------------------------------------------" << endl;
     cout << endl;
     bag.push_back("stick");
-    folk();
+    forkRoad();
 }
 
 void information() {
@@ -70,4 +70,3 @@ void information() {
     }
     background();
 }
-
