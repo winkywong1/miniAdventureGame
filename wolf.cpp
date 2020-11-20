@@ -41,7 +41,7 @@ void defense() {
             cout << cD[i];
             usleep(3000);
         }
-        life -= 20;
+        life -= 10;
     }
     else {
         char nD[] = "You choose not to fight with the wolf so you are seriously injuried. \n"
@@ -51,7 +51,7 @@ void defense() {
             cout << nD[k];
             usleep(3000);
         }
-        life -= 40;
+        life -= 30;
     }
     cout << endl;
     shoot();
