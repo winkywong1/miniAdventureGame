@@ -3,6 +3,7 @@
 #include <vector>
 #include "wolf.h"
 #include "show.h"
+#include "endGame.h"
 #include "monsterPlay.h"
 #include "castle.h"
 using namespace std;
@@ -42,6 +43,13 @@ void defense() {
             usleep(3000);
         }
         life -= 10;
+        vector<string>::iterator item = bag.begin();
+        for (int j = 0; j < bag.size(); j++) {        
+            if (*item == "stick") {
+                bag.erase(bag.begin() + j);
+            }
+            item++;
+        }
     }
     else {
         char nD[] = "You choose not to fight with the wolf so you are seriously injuried. \n"
@@ -54,6 +62,10 @@ void defense() {
         life -= 30;
     }
     cout << endl;
+    if (life <= 0) {
+        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+        endGame();
+    }
     shoot();
 }
 
@@ -62,38 +74,38 @@ void wolf() {
     cout << endl;
     char word[] = "You walk in the forest and you accidentally meet a wolf. \n"
         "The wolf is scary and horrible He is full of hunger. ";
-        for (int i = 0; i < sizeof(word); i++) {
-            cout << word[i];
-            usleep(3000);
-        }
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
     cout << endl;
     char answer;
     cout << "Do you have any food that can give him and avoid being eaten? (y: yes / n: no)" << endl;
     cin >> answer;
     cout << endl;
     bool haveFood;
-    vector<string>::iterator find;
-    for (find = bag.begin(); find != bag.end(); find++) {
-        if (answer == 'y') {
-            if ((*find == "steak") || (*find == "fish")) {
+    if (answer == 'n') {
+        haveFood = false;
+    }
+    if (answer == 'y') {
+        vector<string>::iterator find;
+        for (find = bag.begin(); find != bag.end(); find++) {
+            if ((*find == "steak") || (*find == "fish")) 
                 haveFood = true;
-            }
-            else {
+            else
                 haveFood = false;
-            }
         }
-        if (answer == 'n') 
-            haveFood = false;
     }
 
     if (haveFood) {
         char food[] = "The wolf is happy and full now. \n"
-        "He walks away without hurting you and you are safe now. \n \n" 
-        "You can keep on your adventure.\n \n";
+            "He walks away without hurting you and you are safe now. \n \n" 
+            "You can keep on your adventure.\n \n";
         for (int j = 0; j < sizeof(food); j++) {
             cout << food[j];
             usleep(3000);
         }
+        bag.pop_back();
         shoot();
     }
     if (!haveFood) {
