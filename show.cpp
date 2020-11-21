@@ -3,10 +3,8 @@
 #include <vector>
 #include <unistd.h>
 #include "show.h"
+#include "stat.h"
 using namespace std;
-
-vector<string> bag;
-int life = 100;
 
 // player may not remember all the variation of the CP and items in bag
 // this function is to display this two information in every different scenarios
