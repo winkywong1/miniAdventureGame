@@ -9,6 +9,7 @@
 #include "stat.h"
 using namespace std;
 
+// maximum number of card received is 5
 // calculate the minimum value and maximum value of the card according to the poker got by the player
 // since getting Ace can count the value as 1 or 11, there will be minimum and maximum value
 // minimum and maximum value of the total value of all the cards held by the player to check whether it is fewer than, larger than or equal to 21
@@ -192,6 +193,7 @@ void blackjack() {
             break;
         }
     }
+
     cout << endl << "------------------------------------ Dealer's Turn ------------------------------------" << endl << endl;
     cout << "Bad guy said, \"Well, you finished then now is my turn.\"" << endl;
     cout << "I am holding ";
@@ -208,26 +210,22 @@ void blackjack() {
     if (dealer.mintotal >= 17)
         dealerHits = false;
 
-    while (dealerHits && !Dbust) {
-        if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
-            dealerWins = true;
-            break;
-        }
-        if (dealer.mintotal >= 17) {
-            break;
-        }
+    while (dealerHits && (dealer.mintotal < 17)) {
         if (dealerCard == 2) {
             dealer.card3 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card3, &dealer.minVcard3, &dealer.maxVcard3, &dealer.mintotal, &dealer.maxtotal);
         }
-        else if (dealerCard == 3) {
+        if ((dealerCard == 3) && (dealer.mintotal < 17)) {
             user.card4 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card4, &dealer.minVcard4, &dealer.maxVcard4, &dealer.mintotal, &dealer.maxtotal);
         }
-        else if (dealerCard == 4) {
+        if (dealerCard == 4 && (dealer.mintotal < 17)) {
             user.card5 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card5, &dealer.minVcard5, &dealer.maxVcard5, &dealer.mintotal, &user.maxtotal);
         }
+        if (dealerCard == 5) {
+            break;
+        } 
         dealerCard += 1;
         usleep(300000);
         cout << "Hit! Let\'s see what I get. ";
@@ -238,29 +236,32 @@ void blackjack() {
                 cout << DshowPo[j] << " ";
         }
         cout << ". " << endl;
-        usleep(300000);
         if (dealer.mintotal < 17)  {
             dealerHits = true;
         }
-        if (dealer.mintotal >= 17) {
-            dealerHits = false;
-            break;
-        }
-        if (dealer.mintotal > 21) {
-            Dbust = true;
-            cout << endl;
-            cout << "!!!!! WHAT??? BUST !!!!!" << endl;
-            break;
-        }
-        if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
-            dealerWins = true;
-            cout << endl;
-            cout << "Bad guy said, \"Woohooooo!! 21!!!!\"" << endl;
+        if (dealer.mintotal >= 17)  {
+            dealerHits = true;
             break;
         }
     }
+    if ((dealer.mintotal >= 17) && (dealer.mintotal > 21)) {
+        Dbust = true;
+        dealerHits = false;
+        cout << endl;
+        cout << "!!!!! WHAT??? BUST !!!!!" << endl;
+    }
+    if (dealer.mintotal > 21) {
+        Dbust = true;
+        cout << endl;
+        cout << "!!!!! WHAT??? BUST !!!!!" << endl;
+    }
+    if (dealer.mintotal == 21 || dealer.maxtotal == 21) {
+        dealerWins = true;
+        cout << endl;
+        cout << "Bad guy said, \"Woohooooo!! 21!!!!\"" << endl;
+    }
+
     cout << endl;
-    sleep(1);
     cout << "---------------------------------------------------------------------------------------" << endl << endl;
     if ((!Ubust) && (!Dbust)) {
         if (!userWins && !dealerWins) {
@@ -311,8 +312,6 @@ void blackjack() {
         winGame();
     }
 }
-
-
 
 
 // after different paths or challenges, the player finally sees the bad guy who kidnapped the dog
