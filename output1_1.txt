@@ -1,0 +1,76 @@
+Press C to continue the last game
+Press S to start a new game
+> S
+
+Please enter your name: Peter
+
+Hello, Peter. 
+
+---------------------------------------------------------------------------------------
+
+Here are some basic instructions: 
+In the adventure, you may face a lot of difficulties.
+Press the corresponding botton to make your choice.
+Different decision may lead to a completely different situation.
+Try to make the best choice and survive to the end.
+ 
+You can quit the game at the end of each scene. 
+You will keep the current status of game 
+and direct to the next scenario when you continue the game next time. 
+Your bag will be empty since you put down the bag and rest. 
+However, other things will remain the same. 
+
+---------------------------------------------------------------------------------------
+
+Are you ready to start your adventure? (y: yes / n: no)
+y
+
+---------------------------------------------------------------------------------------
+
+                    Your favouraite dog was kidnapped to the forest.                   
+        You are worried about him so you decide to go in the forest to save him.       
+         You bring a wood stick for protection and you are full of energy now.         
+
+---------------------------------------------------------------------------------------
+
+You just walk into the forest and meet your first fork in the road (literally).
+Now, go left or right (l: left / r: right)? l
+
+
+---------------------------------------------------------------------------------------
+        CP: 100                    Bag: stick 
+---------------------------------------------------------------------------------------
+
+You walk to the left side of the road and you see a wooden hut in front of you. 
+You would like to go inside and take a rest. 
+When you get in there, you see a poor little boy crying with no reason.
+Would you comfort him and see if anything can help? (y: yes / n: no)
+y
+
+The kid cried because his robot is broken. 
+He feels better now after your comfort. 
+He is very happy so he gives you a steak to thanks for your compassion. 
+ 
+You receive a steak and keep on your adventure.
+
+---------------------------------------------------------------------------------------
+        CP: 100                    Bag: stick steak 
+---------------------------------------------------------------------------------------
+
+You walk in the forest and you accidentally meet a wolf. 
+The wolf is scary and horrible He is full of hunger. 
+Do you have any food that can give him and avoid being eaten? (y: yes / n: no)
+y
+
+The wolf is happy and full now. 
+He walks away without hurting you and you are safe now. 
+ 
+You can keep on your adventure.
+ 
+
+            Press C to continue                  Press Q to quit the game           
+> Q
+
+Your game status will be stored.
+The game will be started from the beginning of your previous scenario.
+You can take a rest and finish the adventrue later.
