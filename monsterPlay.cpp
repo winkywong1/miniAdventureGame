@@ -6,10 +6,9 @@
 #include "show.h"
 #include "castle.h"
 #include "endGame.h"
+#include "bingo.h"
+#include "stat.h"
 using namespace std;
-
-vector<string> bag;
-int life = 100;
 
 //Assume that the monster is a rectangle
 //The rectangle has 4 vertices
@@ -63,6 +62,13 @@ bool IsOverlap(monsterposition p, ballotposition q) {
   }
 }
 
+
+// The player has 5 ballots. 
+// If all 5 ballots cannot hit the monster, the player will lose
+// If any one of the ballots hit the monster, the player win
+// Each failure will lead to a decrease of 10 CP
+// The success will provide a key to the player for the next challenge
+// Tell the player the position of the ballot and position of the monster after finishing the shoot
 void shoot(){
     show();
     cout << endl;
@@ -84,12 +90,6 @@ void shoot(){
     monsterpos(mp.minx, mp.miny, mp.maxx, mp.maxy);
     ballotpos(bp.mina, bp.minb, bp.maxa, bp.maxb,c,d);
     
-    // The player has 5 ballots. 
-    // If the 5 ballots all cannot hit the monster, the player will lose
-    // If any one of the ballots hit the monster, the player win
-    // Each failure will lead to a decrease of 10 CP
-    // The success will provide a key to the player for the next challenge
-    // Tell the player the position of the ballot and position of the monster
     if (IsOverlap(mp,bp)) {
         cout << "You win! You get a key on the hand of the monster. " << endl;
         bag.push_back("key");
@@ -124,9 +124,13 @@ void shoot(){
     cout << "Bottom left corner: x-min = " << bp.mina << " ; y-max = " << bp.minb << endl;
     cout << endl << "Your CP now is " << life << ". " << endl;
     if (life <= 0) {
-        cout << endl << "- - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - " << endl;
-        endGame();
+        if (chance == 0) {
+            bingo();
+        }
+        else {
+            cout << "You have used your one and only one chance to go to the restaurant." << endl;
+            endGame();
+        }
     }
     castleIn();
 }
-
