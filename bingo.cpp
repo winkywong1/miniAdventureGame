@@ -69,7 +69,7 @@ void bingo(){
         }
     }
 
-    cout<<endl<<endl;
+    cout << endl << endl;
 
     // check if any number on the player's card matches the number on the waitress's card
     // 5 CP bonus for each match will be given to the player
@@ -107,5 +107,4 @@ void bingo(){
         cout << "You finally gain some energy from the restaurant and continue the adventure." << endl;
     }
 }
-
 
