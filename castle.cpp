@@ -8,6 +8,7 @@
 #include "winGame.h"
 #include "endGame.h"
 #include "bingo.h"
+#include "quitGame.h"
 #include "stat.h"
 using namespace std;
 
@@ -74,11 +75,23 @@ void castleDoor() {
         life -= 20;
         cout << "However, you finally see your dog! You reach the last challenge." << endl;
         if (life <= 0) {
-            if (chance == 0)
+            if (chance == 0) {
                 bingo();
+                finalStage();
+            }
         }
-        else
-            finalStage();
+        else {
+            cout << endl;
+            level.pop_front();
+            cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+            char decision;
+            cout << "> ";
+            cin >> decision;
+            if (decision == 'Q')
+                quitGame();
+            if (decision == 'C')
+                blackjack();
+        }
     }
     if (option == 3) {
         cout << "You give up saving your dog." << endl;
@@ -116,6 +129,7 @@ void withGhost() {
     if (life <= 0) {
         if (chance == 0) {
             bingo();
+            castleDoor();
         }
         else {
             cout << "You have used your one and only one chance to go to the restaurant." << endl;
@@ -358,7 +372,6 @@ void guessKey() {
     }
     cout << endl;
 }
-
 
 
 // check if the player has the key by accessing the bag (a vector to store items owned by the player in bag)
