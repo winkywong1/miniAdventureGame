@@ -7,6 +7,7 @@
 #include "castle.h"
 #include "endGame.h"
 #include "bingo.h"
+#include "quitGame.h"
 #include "stat.h"
 using namespace std;
 
