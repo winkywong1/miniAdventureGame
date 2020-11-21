@@ -177,6 +177,7 @@ void blackjack() {
             cout << "You choose to stand." << endl;
             cout << "The smaller possible sum of card is " << user.mintotal << " and the larger possible is " << user.maxtotal << ". " << endl;
             cout << endl;
+            break;
         }
         if (user.mintotal > 21) {
             Ubust = true;
@@ -212,20 +213,23 @@ void blackjack() {
             dealerWins = true;
             break;
         }
+        if (dealer.mintotal >= 17) {
+            break;
+        }
         if (dealerCard == 2) {
             dealer.card3 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card3, &dealer.minVcard3, &dealer.maxVcard3, &dealer.mintotal, &dealer.maxtotal);
         }
-        if (dealerCard == 3) {
+        else if (dealerCard == 3) {
             user.card4 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card4, &dealer.minVcard4, &dealer.maxVcard4, &dealer.mintotal, &dealer.maxtotal);
         }
-        if (dealerCard == 4) {
+        else if (dealerCard == 4) {
             user.card5 = poker[rand() % 13];
             calBlackjack(dealerCard, DshowPo, dealer.card5, &dealer.minVcard5, &dealer.maxVcard5, &dealer.mintotal, &user.maxtotal);
         }
         dealerCard += 1;
-        usleep(30000);
+        usleep(300000);
         cout << "Hit! Let\'s see what I get. ";
         for (int j = 0; j < dealerCard; j++) {
             if (DshowPo[j] == 'x')
@@ -234,12 +238,13 @@ void blackjack() {
                 cout << DshowPo[j] << " ";
         }
         cout << ". " << endl;
-        usleep(30000);
+        usleep(300000);
         if (dealer.mintotal < 17)  {
             dealerHits = true;
         }
         if (dealer.mintotal >= 17) {
             dealerHits = false;
+            break;
         }
         if (dealer.mintotal > 21) {
             Dbust = true;
@@ -306,6 +311,8 @@ void blackjack() {
         winGame();
     }
 }
+
+
 
 
 // after different paths or challenges, the player finally sees the bad guy who kidnapped the dog
