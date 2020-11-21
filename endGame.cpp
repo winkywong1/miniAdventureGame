@@ -33,4 +33,3 @@ void endGame() {
     fout.close();
     exit(0);
 }
-
