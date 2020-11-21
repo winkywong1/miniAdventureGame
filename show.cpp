@@ -10,7 +10,6 @@ using namespace std;
 // this function is to display this two information in every different scenarios
 void show() {
     cout << endl;
-    usleep(15000);
     vector<string>::iterator thing;
     cout << "---------------------------------------------------------------------------------------" << endl;
     cout << "        CP: " << life << "                    Bag: ";
