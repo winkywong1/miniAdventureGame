@@ -79,7 +79,12 @@ void castleDoor() {
                 bingo();
                 finalStage();
             }
+            if (chance != 0) {
+                cout << "You have used your one and only one chance to go to the restaurant." << endl;
+                endGame();
+            }
         }
+
         else {
             cout << endl;
             level.pop_front();
@@ -131,7 +136,7 @@ void withGhost() {
             bingo();
             castleDoor();
         }
-        else {
+        if (chance != 0) {
             cout << "You have used your one and only one chance to go to the restaurant." << endl;
             endGame();
         }
@@ -182,7 +187,7 @@ void castleGhost() {
             if (chance == 0) {
                 bingo();
             }
-            else {
+            if (chance != 0) {
                 cout << "You have used your one and only one chance to go to the restaurant." << endl;
                 endGame();
             }
