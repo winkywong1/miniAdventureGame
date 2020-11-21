@@ -20,6 +20,7 @@ void winGame() {
         cout << winMsg << endl;
     }
     fin.close();
+
 	ofstream fout;
     fout.open("result.txt", ios::app);
     if ( fout.fail() ) {
