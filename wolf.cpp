@@ -3,14 +3,14 @@
 #include <vector>
 #include "wolf.h"
 #include "show.h"
-#include "endGame.h"
 #include "monsterPlay.h"
 #include "castle.h"
+#include "endGame.h"
+#include "stat.h"
 using namespace std;
 
-vector<string> bag;
-int life = 100;
-
+// let the player choose to defense with the stick or not
+// player who does not have the stick cannot defense even if he/she chooses to defense
 void defense() {
     char answer;
     cout << "Will you use the stick to defense and keep you safe, or do nothing?" << endl;
@@ -34,6 +34,7 @@ void defense() {
         canDefense = false;
     }
 
+    // avoid player to choose defense even if he/she does not have any stick
     if (canDefense) {
         char cD[] = "You try your best to defense and protect yourself. \n"
             "Although you lost your stick during the fight, you only can a little hurt. \n \n" 
@@ -62,13 +63,10 @@ void defense() {
         life -= 30;
     }
     cout << endl;
-    if (life <= 0) {
-        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-        endGame();
-    }
     shoot();
 }
 
+// if the player receive steak or fish in the last round, he/she can choose to give the food to the wolf to avoid being attacked
 void wolf() {
     show();
     cout << endl;
