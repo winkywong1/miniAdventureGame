@@ -33,17 +33,15 @@ void bingo(){
         usleep(3000);
     }
 
+    // for generate the number on waitress's card
     int card[25],user[25];
-    
-    // generate random number to be the number of the waitress
     srand(time(NULL));
     for (int i = 0; i < 20; i++){
       int a = rand() % 50 + 1;
       card[i] = a;
     }
 
-    // let the player input 5 groups of number and we calculate the sum and difference of each groups of number 
-    // therefore, there will be 5*4 = 20 numbers
+    // to calculate the input from player and generate 5*(2+2) = 20 numbers
     int input1, input2, sum, diff;
     for (int i=0;i<5;i++){
         cout << endl << "\"1st input\" & \"2nd input\" of the " << i+1 << " Group: ";
@@ -61,8 +59,7 @@ void bingo(){
         user[4*i+3] = diff;
     }
     
-    // display the number on the waitress' card
-    cout << endl << "This is the number on waitress' card" << endl;
+    cout << endl << "This is the number on our card" << endl;
     for (int i=0;i<20;i++){
         if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
             cout<<card[i]<<endl;
@@ -74,9 +71,10 @@ void bingo(){
 
     cout<<endl<<endl;
 
+    // check if any number on the player's card matches the number on the waitress's card
+    // 5 CP bonus for each match will be given to the player
     int count = 0;
 
-    // display the number on player's card
     cout<<"This is the number on your card"<<endl;
     for (int i=0;i<20;i++){
         if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
@@ -87,8 +85,6 @@ void bingo(){
         }
     }
 
-    // check any number matched
-    // each match will be rewarded 5 CP
     cout << endl;
     for (int i=0;i<20;i++){
         for (int j=0;j<20;j++){
@@ -103,16 +99,13 @@ void bingo(){
     cout << bonus << " bonus of CP will be rewarded." << endl;
     chance += 1;
 
-    // if the player fails to get any bingo, he/she will lose the game
     if (life <= 0) {
         cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
         endGame();
     }
-    
-    // if there is positive value of CP, the game continues and direct to the entrance of castle
     else {
-        cout << "You finally gain some energy from the restaurant." << endl;
-        cout << "You decide to go to the castle and save your dog as soon as possible." << endl;
-        castleIn();
+        cout << "You finally gain some energy from the restaurant and continue the adventure." << endl;
     }
 }
+
+
