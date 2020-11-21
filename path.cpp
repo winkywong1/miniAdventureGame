@@ -6,6 +6,7 @@
 #include "endGame.h"
 #include "show.h"
 #include "wolf.h"
+#include "stat.h"
 using namespace std;
 
 vector<string> bag;
@@ -90,10 +91,6 @@ void lake() {
         bag.pop_back();
     }
     cout << endl;
-    if (life <= 0) {
-        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
-        endGame();
-    }
     wolf();
 }
 
@@ -143,10 +140,6 @@ void woodhouse() {
         life -= 20;
     }
     cout << endl;
-    if (life <= 0) {
-        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
-        endGame();
-    }
     wolf();
 }
 
