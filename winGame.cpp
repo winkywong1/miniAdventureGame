@@ -2,22 +2,24 @@
 #include <unistd.h>
 #include <fstream>
 #include "winGame.h"
+#include "stat.h"
 using namespace std;
-
-string name;
-int life = 100;
-
 
 // when the player passes all the tasks with positive value of CP left, this printout will be shown to indicate the success of game.
 // the game will end right after printing the printout
 // the information including the name, success and remain value of CP will be stored in a file "result.txt"
 void winGame() {
-    cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" << endl << endl;
-    cout << "                You successfully rescue your dog!!!!! Congraduations!!!!               " << endl;
-    usleep(10000);
-    cout << endl << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  < E N D     O F     G A M E >  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~" << endl;
-
+    ifstream fin;
+    fin.open("winGameMsg.txt");
+    if (fin.fail()){
+        cout<<"error in file opening"<<endl;
+        exit(1);
+    }
+    string winMsg;
+    while (getline(fin,winMsg)){
+        cout << winMsg << endl;
+    }
+    fin.close();
 	ofstream fout;
     fout.open("result.txt", ios::app);
     if ( fout.fail() ) {
