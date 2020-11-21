@@ -1,0 +1,87 @@
+Press C to continue the last game
+Press S to start a new game
+> S
+
+Please enter your name: winnie
+
+Hello, winnie. 
+
+---------------------------------------------------------------------------------------
+
+Here are some basic instructions: 
+In the adventure, you may face a lot of difficulties.
+Press the corresponding botton to make your choice.
+Different decision may lead to a completely different situation.
+Try to make the best choice and survive to the end.
+ 
+You can quit the game at the end of each scene. 
+You will keep the current status of game 
+and direct to the next scenario when you continue the game next time. 
+Your bag will be empty since you put down the bag and rest. 
+However, other things will remain the same. 
+
+---------------------------------------------------------------------------------------
+
+Are you ready to start your adventure? (y: yes / n: no)
+n
+
+Are you worried about the adventure?
+There is nothing to worried about! We believe in you.
+Now, are you ready to start your adventure? (y: yes / n: no)
+y
+
+---------------------------------------------------------------------------------------
+
+                    Your favouraite dog was kidnapped to the forest.                   
+        You are worried about him so you decide to go in the forest to save him.       
+         You bring a wood stick for protection and you are full of energy now.         
+
+---------------------------------------------------------------------------------------
+
+You just walk into the forest and meet your first fork in the road (literally).
+Now, go left or right (l: left / r: right)? l
+
+
+---------------------------------------------------------------------------------------
+        CP: 100                    Bag: stick 
+---------------------------------------------------------------------------------------
+
+You walk to the left side of the road and you see a wooden hut in front of you. 
+You would like to go inside and take a rest. 
+When you get in there, you see a poor little boy crying with no reason.
+Would you comfort him and see if anything can help? (y: yes / n: no)
+n
+
+The kid keeps crying so you cannot take a nap. 
+You are bothered and you are not energetic as before anymore. 
+ 
+Your CP is decreased by 20. You keep your tired body to keep on the adventure
+
+---------------------------------------------------------------------------------------
+        CP: 80                    Bag: stick 
+---------------------------------------------------------------------------------------
+
+You walk in the forest and you accidentally meet a wolf. 
+The wolf is scary and horrible He is full of hunger. 
+Do you have any food that can give him and avoid being eaten? (y: yes / n: no)
+n
+
+You have no food to give him!! 
+The wolf is very angry!!!!!! 
+He is going to attack you and you are thinking if you should defense or not 
+ 
+Will you use the stick to defense and keep you safe, or do nothing?
+Your response: (y: defense / n: not defense)
+n
+
+You choose not to fight with the wolf so you are seriously injuried. 
+Although you are hurt, you still insist to keep on your journey. 
+ 
+Your CP is decreased by 30. You now keep on the adventure
+
+            Press C to continue                  Press Q to quit the game           
+> Q
+
+Your game status will be stored.
+The game will be started from the beginning of your previous scenario.
+You can take a rest and finish the adventrue later.
