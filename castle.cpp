@@ -7,12 +7,9 @@
 #include "show.h"
 #include "winGame.h"
 #include "endGame.h"
+#include "bingo.h"
+#include "stat.h"
 using namespace std;
-
-string name;
-vector<string> bag;
-int life = 100;
-
 
 // show that the player reach a locked door
 // ask the player to choose between 3 choices:
@@ -77,8 +74,8 @@ void castleDoor() {
         life -= 20;
         cout << "However, you finally see your dog! You reach the last challenge." << endl;
         if (life <= 0) {
-            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-            endGame();
+            if (chance == 0)
+                bingo();
         }
         else
             finalStage();
@@ -117,8 +114,13 @@ void withGhost() {
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
     if (life <= 0) {
-        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-        endGame();
+        if (chance == 0) {
+            bingo();
+        }
+        else {
+            cout << "You have used your one and only one chance to go to the restaurant." << endl;
+            endGame();
+        }
     }
 }
 
@@ -163,8 +165,13 @@ void castleGhost() {
         life -= 30;
         cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
         if (life <= 0) {
-            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-            endGame();
+            if (chance == 0) {
+                bingo();
+            }
+            else {
+                cout << "You have used your one and only one chance to go to the restaurant." << endl;
+                endGame();
+            }
         }
     }
     castleDoor();
