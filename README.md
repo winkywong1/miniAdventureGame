@@ -24,12 +24,14 @@ Route:
 4. monster game
 5. castle
 6. final mission
+(restaurant: for recover CP)
                        
 During different scenarios in the game, a few simple games are included:
 1. Word and number guessing game (word game will have tips provided to the user to guess)
 2. Rock paper scissors
 3. Monster game
-4. Blackjack for the final round of the game
+4. Bingo
+5. Blackjack for the final round of the game
 
 //
 
@@ -60,6 +62,7 @@ List of features that we plan to implement:
     
 4. Requirement 3: File input/output
 - output the result of the game (player's name, success/failure, CP left) to a file "result.txt"
+- print the winning or losing message by reading line from file "winGameMsg.txt" and "endGameMsg.txt"
 
 5. Program code with multiple files
 - all the functions are seperated in different files by categories and combined in Makefile
