@@ -22,10 +22,12 @@ list<string> level;
 char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
 int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
 
+
 // ask whether the player has played before or want to start a new game
 // if the player has played before, he/she can go back to the previous section and continue the game
 // lose of items in bag will be counted as the punishment but CP will remain the same
 int main() {   
+    
     system("clear");
     cout << "Press C to continue the last game" << endl;
     cout << "Press S to start a new game" << endl;
@@ -74,15 +76,21 @@ int main() {
                 int inLife = stoi(userInfo[i+1]);
                 life = inLife;
                 if (userInfo[i+2] == "wolf") {
+                    level.push_back("monster");
+                    level.push_back("castle");
+                    level.push_back("final");
                     wolf();
                 }
-                if (userInfo[i+2] == "monster") {
+                else if (userInfo[i+2] == "monster") {
+                    level.push_back("castle");
+                    level.push_back("final");
                     shoot();
                 }
-                if (userInfo[i+2] == "castle") {
+                else if (userInfo[i+2] == "castle") {
+                    level.push_back("final");
                     castleIn();
                 }
-                if (userInfo[i+2] == "final") {
+                else if (userInfo[i+2] == "final") {
                     finalStage();
                 }
             }
