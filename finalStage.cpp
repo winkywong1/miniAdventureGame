@@ -11,7 +11,7 @@ using namespace std;
 // calculate the minimum value and maximum value of the card according to the poker got by the player
 // since getting Ace can count the value as 1 or 11, there will be minimum and maximum value
 // minimum and maximum value of the total value of all the cards held by the player to check whether it is fewer than, larger than or equal to 21
-void calBlackjack(int num, char number[maxNumOfPoker], char a, int *mina, int *maxa, int *minto, int *maxto) {
+void calBlackjack(int num, char number[5], char a, int *mina, int *maxa, int *minto, int *maxto) {
     number[num] = a;
     srand(time(NULL));
     for (int i = 0; i < 13; i++) {
@@ -71,8 +71,8 @@ void blackjack() {
     int round = 1;
     int userCard = 2;
     int dealerCard = 2;
-    char UshowPo[maxNumOfPoker];
-    char DshowPo[maxNumOfPoker];
+    char UshowPo[5];
+    char DshowPo[5];
 
     struct player
     {
@@ -323,6 +323,14 @@ void finalStage() {
     }
     cout << endl << "\"At least it is a chance...,\" you think." << endl;
     cout << "Just give it a try!" << endl;
-    blackjack();
+    cout << endl;
+    level.pop_front();
+    cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+    char decision;
+    cout << "> ";
+    cin >> decision;
+    if (decision == 'Q')
+        quitGame();
+    if (decision == 'C')
+        blackjack();
 }
-
