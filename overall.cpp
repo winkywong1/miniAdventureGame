@@ -10,6 +10,7 @@ string name;
 vector<string> bag;
 int life = 100;
 bool lose;
+int chance = 0;
 
 void show() {
     cout << endl;
@@ -23,12 +24,17 @@ void show() {
 }
 
 void winGame() {
-    cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" << endl << endl;
-    cout << "                You successfully rescue your dog!!!!! Congraduations!!!!               " << endl;
-    usleep(10000);
-    cout << endl << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  < E N D     O F     G A M E >  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~" << endl;
-
+    ifstream fin;
+    fin.open("winGameMsg.txt");
+    if (fin.fail()){
+        cout<<"error in file opening"<<endl;
+        exit(1);
+    }
+    string winMsg;
+    while (getline(fin,winMsg)){
+        cout << winMsg << endl;
+    }
+    fin.close();
 	ofstream fout;
     fout.open("result.txt", ios::app);
     if ( fout.fail() ) {
@@ -43,13 +49,17 @@ void winGame() {
 }
 
 void endGame() {
-    cout << endl << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
-    cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl << endl;;
-    cout << "                              You fail to save your dog.                               " << endl;
-    usleep(5000);
-    cout << endl << "                  You can never see your dog and you are very upset.                   " << endl;
-    usleep(5000);
-    cout << endl << "                             - - G A M E     O V E R - -" << endl;
+    ifstream fin;
+    fin.open("endGameMsg.txt");
+    if (fin.fail()){
+        cout<<"error in file opening"<<endl;
+        exit(1);
+    }
+    string msg;
+    while (getline(fin,msg)){
+        cout << msg << endl;
+    }
+    fin.close();
 
 	ofstream fout;
     fout.open("result.txt", ios::app);
@@ -61,6 +71,103 @@ void endGame() {
     fout << "Result: " << "lose the game with " << life << " CP left." << endl;
     fout.close();
     exit(0);
+}
+
+// help the player to gain CP
+void bingo(){
+    cout << endl << "---------------------------------------------------------------------------------------" << endl;
+    cout << endl << "*  *  *  *  *  *  *  *  *  *  *  *  * C H A N C E *  *  *  *  *  *  *  *  *  *  *  *  *" << endl;
+    cout << endl << "---------------------------------------------------------------------------------------" << endl;
+    cout << endl;
+    char word[] = "You lose all the CP and you are exhausted. \n"
+        "Luckily, you find a restaurant. \n"
+        "In this restaurant, you will have the chance to replenish your CP value. \n"
+        "You will play a game and your performance of this game will determine the gain in CP value. \n \n" 
+        "There are 25 numbers on the card, arranging in a 5 x 4 manner. \n"
+        "The number should be between 1 and 100. \n"
+        "The waitress is holding the 20 cards and plays Bingo with you. \n"
+        "You have to write 5 groups of number, each group contains 2 numbers. \n"
+        "That means there are total 10 numbers inputted by you. \n"
+        "We will calculate the sum and difference of each group of numbers.  \n"
+        "After inputing the number, each group of number will be displayed as \n"
+        "\"1st input\", \"2nd input\", \"Sum of two inputs\", and \"difference of two inputs\" \n"
+        "If the number on your card matches the number on the waitress's, 5 CP will be rewarded.  \n";
+    for (int i = 0; i < sizeof(word); i++) {
+        cout << word[i];
+        usleep(3000);
+    }
+
+    int card[25],user[25];
+    srand(time(NULL));
+    for (int i = 0; i < 20; i++){
+      int a = rand() % 50 + 1;
+      card[i] = a;
+    }
+
+    int input1, input2, sum, diff;
+    for (int i=0;i<5;i++){
+        cout << endl << "\"1st input\" & \"2nd input\" of the " << i+1 << " Group: ";
+        cin >> input1 >> input2;
+        sum = input1 + input2;
+        if (input1 > input2){
+            diff = input1 - input2;
+        }
+        else {
+            diff = input2 - input1;
+        }
+        user[4*i] = input1;
+        user[4*i+1] = input2;
+        user[4*i+2] = sum;
+        user[4*i+3] = diff;
+    }
+    
+    cout << endl << "This is the number on our card" << endl;
+    for (int i=0;i<20;i++){
+        if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
+            cout<<card[i]<<endl;
+        }
+        else{
+            cout<<card[i]<<" ";
+        }
+    }
+
+    cout<<endl<<endl;
+
+    int count = 0;
+
+    cout<<"This is the number on your card"<<endl;
+    for (int i=0;i<20;i++){
+        if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
+            cout<<user[i]<<endl;
+        }
+        else{
+            cout<<user[i]<<" ";
+        }
+    }
+
+    cout << endl;
+    for (int i=0;i<20;i++){
+        for (int j=0;j<20;j++){
+            if (card[i]==user[j]){
+                count += 1;
+            }
+        }
+    }
+    int bonus = count*5;
+    life += bonus;
+    cout << endl << "There are in total " << count << " match" << endl;
+    cout << bonus << " bonus of CP will be rewarded." << endl;
+    chance += 1;
+
+    if (life <= 0) {
+        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+        endGame();
+    }
+    else {
+        cout << "You finally gain some energy from the restaurant." << endl;
+        cout << "You decide to go to the castle and save your dog as soon as possible." << endl;
+        castleIn();
+    }
 }
 
 // finalStage
@@ -180,11 +287,7 @@ void blackjack() {
         if (user.mintotal == 21 || user.maxtotal == 21) {
             userWins = true;
             cout << endl << "Blackjack!!! Amazing!!! Let\'s how is it the dealer" << endl;
-            cout << endl << "Press SPACE to continue" << endl << endl;
-            char space;
-            cin >> space;
-            if (space == ' ')
-                break;
+            break;
         }
         cout << endl;
         round += 1;
@@ -432,8 +535,8 @@ void castleDoor() {
         life -= 20;
         cout << "However, you finally see your dog! You reach the last challenge." << endl;
         if (life <= 0) {
-            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-            endGame();
+            if (chance == 0)
+                bingo();
         }
         else
             finalStage();
@@ -468,8 +571,8 @@ void withGhost() {
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
     if (life <= 0) {
-        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-        endGame();
+        if (chance == 0)
+            bingo();
     }
 }
 
@@ -510,8 +613,8 @@ void castleGhost() {
         life -= 30;
         cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
         if (life <= 0) {
-            cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-            endGame();
+            if (chance == 0)
+                bingo();
         }
     }
     castleDoor();
@@ -829,8 +932,7 @@ void shoot(){
     cout << "Bottom left corner: x-min = " << bp.mina << " ; y-max = " << bp.minb << endl;
     cout << endl << "Your CP now is " << life << ". " << endl;
     if (life <= 0) {
-        cout << endl << "- - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - " << endl;
-        endGame();
+        bingo();
     }
     castleIn();
 }
@@ -889,8 +991,8 @@ void defense() {
     }
     cout << endl;
     if (life <= 0) {
-        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
-        endGame();
+        if (chance == 0)
+            bingo();
     }
     shoot();
 }
@@ -1024,8 +1126,8 @@ void lake() {
     }
     cout << endl;
     if (life <= 0) {
-        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
-        endGame();
+        if (chance == 0)
+            bingo();
     }
     wolf();
 }
@@ -1074,8 +1176,8 @@ void woodhouse() {
     }
     cout << endl;
     if (life <= 0) {
-        cout << "Your CP is 0. You don't have enough energy to finish the journey." << endl;
-        endGame();
+        if (chance == 0)
+            bingo();
     }
     wolf();
 }
