@@ -109,7 +109,6 @@ void woodhouse() {
     cin >> answer;
     cout << endl;
 
-    // ensure valid input
     while (answer != 'y' && answer != 'n') {
         cout << "Invalid Input! Please answer again.\n";
         cout << "Your response: (y: yes / n: no) ";
@@ -162,4 +161,3 @@ void forkRoad() {
     if (input == 'r')
         lake();
 }
-
