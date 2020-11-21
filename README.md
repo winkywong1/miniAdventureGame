@@ -17,19 +17,7 @@ Game description:
 
 Plot:
 
-A simple adventure game
 
-Group: 122
-
-Member: 3035695189 Wong Wing Kei Member: 3035691195 Mak Ka Ho //
-
-Game description:
-
-- We are planning to create a simple adventure game. 
-- Every player gets 100% Strength at the beginning. 
-- There will be some challenges for players to solve. 
-- The player should choose different decision during each challenge 
-- Each decision will bring different outcomes.
 
 At the beginning of the game, the player can choose to continue the previous game or start a new game. If the player presses C which means continue the previous game. The previous data including name, life and scenario will be returned. If the player chooses to play a new game, after some instructions and introduction, the player will choose from left or right at the fork in the road and lead to 2 different paths -  wooden huts and lake. If they choose wooden huts, they will hear a child crying. They can choose comfort him or not. If they choose to comfort her, the child will be happy and give the player a steak. If not, the child will feel annoyed and the players will be deducted 20 cp value If they choose lake, they have to play rock-paper-scissors with a fairy. They need to win the fairy to get a fish. Otherwise, they cannot get anything food from the fairy.
 
