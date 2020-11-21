@@ -9,9 +9,6 @@
 #include "stat.h"
 using namespace std;
 
-vector<string> bag;
-int life = 100;
-
 // implementing rock-paper-scissors game
 // randomly assigned an outcome from {rock, paper, scissors} to the fairy
 // compare the fairy decision and the player's input to determine the winner
