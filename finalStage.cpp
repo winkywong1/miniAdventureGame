@@ -5,14 +5,8 @@
 #include "show.h"
 #include "winGame.h"
 #include "endGame.h"
+#include "stat.h"
 using namespace std;
-
-// char array poker is used to indicate the poker card held by the player
-// int array pokerNum is used to indicate the face value of the poker
-// maxNumOfPoker is 5 which is the maximum number of card owned bu the player
-char poker[13] = {'A','2','3','4','5','6','7','8','9','x','J','Q','K'};
-int pokerNum[13] = {1,2,3,4,5,6,7,8,9,10,10,10,10};
-const int maxNumOfPoker = 5;
 
 // calculate the minimum value and maximum value of the card according to the poker got by the player
 // since getting Ace can count the value as 1 or 11, there will be minimum and maximum value
@@ -39,6 +33,7 @@ void calBlackjack(int num, char number[maxNumOfPoker], char a, int *mina, int *m
     *minto += *mina;
     *maxto += *maxa;
 }
+
 
 // introduce the game "Blackjack" to the player to ensure the player knows how to play the game
 // all the cards given to the dealer and player are in random. different round may have different card received.
@@ -135,11 +130,7 @@ void blackjack() {
         if (user.mintotal == 21 || user.maxtotal == 21) {
             userWins = true;
             cout << endl << "Blackjack!!! Amazing!!! Let\'s how is it the dealer" << endl;
-            cout << endl << "Press SPACE to continue" << endl << endl;
-            char space;
-            cin >> space;
-            if (space == ' ')
-                break;
+            break;
         }
         cout << endl;
         round += 1;
@@ -315,6 +306,7 @@ void blackjack() {
     }
 }
 
+
 // after different paths or challenges, the player finally sees the bad guy who kidnapped the dog
 // it drives to the game Blackjack as the final mission
 void finalStage() {
@@ -333,3 +325,4 @@ void finalStage() {
     cout << "Just give it a try!" << endl;
     blackjack();
 }
+
