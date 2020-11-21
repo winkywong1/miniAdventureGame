@@ -46,6 +46,7 @@ int bingo(){
     user[5*i+4]=sum+diff;
   }
 
+  cout<<"This is the number on our card"<<endl;
   for (int i=0;i<25;i++){
     if (i==4 || i==9 || i==14 || i==19 || i==24){
       cout<<card[i]<<endl;
@@ -57,6 +58,7 @@ int bingo(){
 
   cout<<endl<<endl;
 
+  cout<<"This is the number on your card"<<endl;
   for (int i=0;i<25;i++){
     if (i==4 || i==9 || i==14 || i==19 || i==24){
       cout<<user[i]<<endl;
@@ -75,6 +77,8 @@ int bingo(){
       }
     }
   }
+
+  cout<<"This is the number of our card after comparing with your card"<<endl;
   for (int i=0;i<25;i++){
     if (i==4 || i==9 || i==14 || i==19 || i==24){
       cout<<card[i]<<endl;
