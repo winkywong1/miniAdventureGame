@@ -5,6 +5,7 @@
 #include "show.h"
 #include "winGame.h"
 #include "endGame.h"
+#include "quitGame.h"
 #include "stat.h"
 using namespace std;
 
