@@ -2,9 +2,9 @@ Press C to continue the last game
 Press S to start a new game
 > S
 
-Please enter your name: Peter
+Please enter your name: peter
 
-Hello, Peter. 
+Hello, peter. 
 
 ---------------------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ Different decision may lead to a completely different situation.
 Try to make the best choice and survive to the end.
  
 You can quit the game at the end of each scene. 
-You will keep the current status of game 
+You will keep the current status of game once only 
 and direct to the next scenario when you continue the game next time. 
 Your bag will be empty since you put down the bag and rest. 
 However, other things will remain the same. 
@@ -52,6 +52,8 @@ He feels better now after your comfort.
 He is very happy so he gives you a steak to thanks for your compassion. 
  
 You receive a steak and keep on your adventure.
+            Press C to continue                  Press Q to quit the game           
+> C
 
 ---------------------------------------------------------------------------------------
         CP: 100                    Bag: stick steak 
@@ -67,7 +69,6 @@ He walks away without hurting you and you are safe now.
  
 You can keep on your adventure.
  
-
             Press C to continue                  Press Q to quit the game           
 > Q
 
