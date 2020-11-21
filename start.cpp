@@ -4,11 +4,8 @@
 #include <unistd.h>
 #include "start.h"
 #include "path.h"
-
+#include "stat.h"
 using namespace std;
-
-string name;
-vector<string> bag;
 
 void background() {
     cout << endl << "---------------------------------------------------------------------------------------" << endl << endl;
