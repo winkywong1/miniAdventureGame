@@ -571,8 +571,13 @@ void withGhost() {
         cout << "Your CP is decreased by 10. It is very close to save your dog!" << endl;
     }
     if (life <= 0) {
-        if (chance == 0)
+        if (chance == 0) {
             bingo();
+        }
+        else {
+            cout << "You have used your one and only one chance to go to the restaurant." << endl;
+            endGame();
+        }
     }
 }
 
@@ -613,8 +618,13 @@ void castleGhost() {
         life -= 30;
         cout << "Your CP is decreased by 30. It is very close to save your dog!" << endl;
         if (life <= 0) {
-            if (chance == 0)
+            if (chance == 0) {
                 bingo();
+            }
+            else {
+                cout << "You have used your one and only one chance to go to the restaurant." << endl;
+                endGame();
+            }
         }
     }
     castleDoor();
@@ -932,7 +942,13 @@ void shoot(){
     cout << "Bottom left corner: x-min = " << bp.mina << " ; y-max = " << bp.minb << endl;
     cout << endl << "Your CP now is " << life << ". " << endl;
     if (life <= 0) {
-        bingo();
+        if (chance == 0) {
+            bingo();
+        }
+        else {
+            cout << "You have used your one and only one chance to go to the restaurant." << endl;
+            endGame();
+        }
     }
     castleIn();
 }
@@ -1125,10 +1141,6 @@ void lake() {
         bag.pop_back();
     }
     cout << endl;
-    if (life <= 0) {
-        if (chance == 0)
-            bingo();
-    }
     wolf();
 }
 
@@ -1175,10 +1187,6 @@ void woodhouse() {
         life -= 20;
     }
     cout << endl;
-    if (life <= 0) {
-        if (chance == 0)
-            bingo();
-    }
     wolf();
 }
 
