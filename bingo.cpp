@@ -1,12 +1,22 @@
-# include <iostream>
-# include <fstream>
-# include <unistd.h>
+#include <iostream>
+#include <fstream>
+#include <unistd.h>
+#include "bingo.h"
+#include "endGame.h"
+#include "castle.h"
+#include "stat.h"
 using namespace std;
 
-int life = 100;
+// if the CP of player decrease to 0, he/she will be given a chance to gain some CP and continue the game
+// it is a game similar to the bingo
+// player has to input some numbers and check whether the input, and the sum and difference of the group of number matches the number of the waitress
 void bingo(){
+    cout << endl << "---------------------------------------------------------------------------------------" << endl;
+    cout << endl << "*  *  *  *  *  *  *  *  *  *  *  *  * C H A N C E *  *  *  *  *  *  *  *  *  *  *  *  *" << endl;
+    cout << endl << "---------------------------------------------------------------------------------------" << endl;
     cout << endl;
-    char word[] = "You are tired and you reach the restaurant. \n"
+    char word[] = "You lose all the CP and you are exhausted. \n"
+        "Luckily, you find a restaurant. \n"
         "In this restaurant, you will have the chance to replenish your CP value. \n"
         "You will play a game and your performance of this game will determine the gain in CP value. \n \n" 
         "There are 25 numbers on the card, arranging in a 5 x 4 manner. \n"
@@ -24,12 +34,16 @@ void bingo(){
     }
 
     int card[25],user[25];
+    
+    // generate random number to be the number of the waitress
     srand(time(NULL));
     for (int i = 0; i < 20; i++){
       int a = rand() % 50 + 1;
       card[i] = a;
     }
 
+    // let the player input 5 groups of number and we calculate the sum and difference of each groups of number 
+    // therefore, there will be 5*4 = 20 numbers
     int input1, input2, sum, diff;
     for (int i=0;i<5;i++){
         cout << endl << "\"1st input\" & \"2nd input\" of the " << i+1 << " Group: ";
@@ -47,7 +61,8 @@ void bingo(){
         user[4*i+3] = diff;
     }
     
-    cout << endl << "This is the number on our card" << endl;
+    // display the number on the waitress' card
+    cout << endl << "This is the number on waitress' card" << endl;
     for (int i=0;i<20;i++){
         if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
             cout<<card[i]<<endl;
@@ -61,6 +76,7 @@ void bingo(){
 
     int count = 0;
 
+    // display the number on player's card
     cout<<"This is the number on your card"<<endl;
     for (int i=0;i<20;i++){
         if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19){
@@ -71,6 +87,8 @@ void bingo(){
         }
     }
 
+    // check any number matched
+    // each match will be rewarded 5 CP
     cout << endl;
     for (int i=0;i<20;i++){
         for (int j=0;j<20;j++){
@@ -83,4 +101,18 @@ void bingo(){
     life += bonus;
     cout << endl << "There are in total " << count << " match" << endl;
     cout << bonus << " bonus of CP will be rewarded." << endl;
+    chance += 1;
+
+    // if the player fails to get any bingo, he/she will lose the game
+    if (life <= 0) {
+        cout << endl << "- - - - - - Your CP is 0. You don't have enough energy to finish the journey. - - - - - - " << endl;
+        endGame();
+    }
+    
+    // if there is positive value of CP, the game continues and direct to the entrance of castle
+    else {
+        cout << "You finally gain some energy from the restaurant." << endl;
+        cout << "You decide to go to the castle and save your dog as soon as possible." << endl;
+        castleIn();
+    }
 }
