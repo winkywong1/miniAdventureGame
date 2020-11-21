@@ -6,6 +6,8 @@
 #include "monsterPlay.h"
 #include "castle.h"
 #include "endGame.h"
+#include "quitGame.h"
+#include "bingo.h"
 #include "stat.h"
 using namespace std;
 
@@ -52,6 +54,7 @@ void defense() {
             item++;
         }
     }
+
     else {
         char nD[] = "You choose not to fight with the wolf so you are seriously injuried. \n"
         "Although you are hurt, you still insist to keep on your journey. \n \n" 
@@ -63,7 +66,22 @@ void defense() {
         life -= 30;
     }
     cout << endl;
-    shoot();
+    if (life <= 0) {
+        if (chance == 0) {
+            bingo();
+            shoot();
+        }
+    }
+    cout << endl;
+    level.pop_front();
+    cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+    char decision;
+    cout << "> ";
+    cin >> decision;
+    if (decision == 'Q')
+        quitGame();
+    if (decision == 'C')
+        shoot();
 }
 
 // if the player receive steak or fish in the last round, he/she can choose to give the food to the wolf to avoid being attacked
