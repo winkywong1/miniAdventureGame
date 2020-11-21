@@ -5,6 +5,7 @@
 #include "start.h"
 #include "path.h"
 #include "stat.h"
+
 using namespace std;
 
 void background() {
@@ -22,9 +23,16 @@ void background() {
     cout << "---------------------------------------------------------------------------------------" << endl;
     cout << endl;
     bag.push_back("stick");
+    level.push_back("wolf");
+    level.push_back("monster");
+    level.push_back("castle");
+    level.push_back("final");
+
     forkRoad();
 }
 
+// introduce the basic rule and background information to the player
+// player will notice the rule of playing and quitting the game
 void information() {
     cout << "Please enter your name: ";
     cin >> name;
@@ -34,7 +42,12 @@ void information() {
     "In the adventure, you may face a lot of difficulties.\n"
     "Press the corresponding botton to make your choice.\n"
     "Different decision may lead to a completely different situation.\n"
-    "Try to make the best choice and survive to the end.\n";
+    "Try to make the best choice and survive to the end.\n \n"
+    "You can quit the game at the end of each scene. \n"
+    "You will keep the current status of game once only \n"
+    "and direct to the next scenario when you continue the game next time. \n"
+    "Your bag will be empty since you put down the bag and rest. \n"
+    "However, other things will remain the same. \n";
     for (int i = 0; i < sizeof(word); i++) {
         cout << word[i];
         usleep(3000);
@@ -67,3 +80,4 @@ void information() {
     }
     background();
 }
+
