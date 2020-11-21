@@ -2,10 +2,8 @@
 #include <unistd.h>
 #include <fstream>
 #include "endGame.h"
+#include "stat.h"
 using namespace std;
-
-string name;
-int life = 100;
 
 // when the player fails to pass all the tasks or his/her CP reaches equal or less than 0, this printout will be shown to indicate the failure of game.
 // the game will end right after printing the printout
