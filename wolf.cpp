@@ -122,7 +122,15 @@ void wolf() {
             usleep(3000);
         }
         bag.pop_back();
-        shoot();
+        level.pop_front();
+        cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+        char decision;
+        cout << "> ";
+        cin >> decision;
+        if (decision == 'Q')
+            quitGame();
+        if (decision == 'C')
+            shoot();
     }
     if (!haveFood) {
         char nofood[] = "You have no food to give him!! \n"
