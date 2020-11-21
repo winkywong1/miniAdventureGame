@@ -1,10 +1,15 @@
 FLAGS = -pedantic-errors -std=c++11
 
-game: game.o show.o winGame.o endGame.o start.o path.o wolf.o monsterPlay.o castle.o finalStage.o
+game: game.o car.o bingo.p show.o winGame.o endGame.o start.o path.o wolf.o monsterPlay.o castle.o finalStage.o
 	g++ game.o endGame.o start.o -o game
 
 game.o: game.cpp start.h
 	g++ -c game.cpp
+	
+car.o:  car.cpp car.h
+        g++ -c car.cpp
+bingo.o: bingo.cpp bingo.h
+         g++ -c bingo.cpp
 
 show.o: show.cpp show.h
 	g++ -c show.cpp
