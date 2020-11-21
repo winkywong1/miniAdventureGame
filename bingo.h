@@ -1,6 +1,7 @@
+// bingo.h
 #ifndef BINGO_H
 #define BINGO_H
 
-int bingo();
+void bingo();
 
 #endif
