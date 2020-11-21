@@ -5,7 +5,7 @@ First we will receive a card, which is not shown to you at this moment.
 There are 25 numbers on the card, arranging in a 5 x 5 manner.
 The number will not be greater than 100 and smaller than 1
 The numbers are randomly assigned
-You have to write 5 groups of number, each group contains 2 numbers
+You have to tell us 5 groups of number, each group contains 2 numbers
 That means there are total 10 numbers
 The number should be within 1-100 (including 1 and 100)
 In each group, the two number, the sum of the two number,
