@@ -15,7 +15,7 @@ Different decision may lead to a completely different situation.
 Try to make the best choice and survive to the end.
  
 You can quit the game at the end of each scene. 
-You will keep the current status of game 
+You will keep the current status of game once only 
 and direct to the next scenario when you continue the game next time. 
 Your bag will be empty since you put down the bag and rest. 
 However, other things will remain the same. 
@@ -56,6 +56,8 @@ The kid keeps crying so you cannot take a nap.
 You are bothered and you are not energetic as before anymore. 
  
 Your CP is decreased by 20. You keep your tired body to keep on the adventure
+            Press C to continue                  Press Q to quit the game           
+> C
 
 ---------------------------------------------------------------------------------------
         CP: 80                    Bag: stick 
