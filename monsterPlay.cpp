@@ -132,5 +132,15 @@ void shoot(){
             endGame();
         }
     }
-    castleIn();
+    cout << endl;
+    level.pop_front();
+    cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+    char decision;
+    cout << "> ";
+    cin >> decision;
+    if (decision == 'Q')
+        quitGame();
+    if (decision == 'C')
+        castleIn();
 }
+
