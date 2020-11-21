@@ -24,7 +24,7 @@ bingo.o : bingo.cpp bingo.h endGame.h castle.h stat.h
 start.o: start.cpp start.h path.h stat.h
 	g++ -c start.cpp
 
-path.o: path.cpp path.h endGame.h show.h wolf.h stat.h
+path.o: path.cpp path.h endGame.h show.h wolf.h stat.h quitGame.h
 	g++ -c path.cpp
 
 wolf.o: wolf.cpp wolf.h show.h monsterPlay.h castle.h quitGame.h endGame.h stat.h
