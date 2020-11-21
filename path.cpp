@@ -7,6 +7,7 @@
 #include "show.h"
 #include "wolf.h"
 #include "stat.h"
+#include "quitGame.h"
 using namespace std;
 
 // implementing rock-paper-scissors game
@@ -88,9 +89,15 @@ void lake() {
         bag.pop_back();
     }
     cout << endl;
-    wolf();
+    cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+    char decision;
+    cout << "> ";
+    cin >> decision;
+    if (decision == 'Q')
+        quitGame();
+    if (decision == 'C')
+        wolf();
 }
-
 
 // let the player make decision between comforting the boy or ignoring him when facing the crying boy 
 void woodhouse() {
@@ -136,6 +143,13 @@ void woodhouse() {
         life -= 20;
     }
     cout << endl;
+    cout << "            Press C to continue                  Press Q to quit the game           " << endl;
+    char decision;
+    cout << "> ";
+    cin >> decision;
+    if (decision == 'Q')
+        quitGame();
+    if (decision == 'C')
     wolf();
 }
 
