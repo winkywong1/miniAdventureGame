@@ -1,9 +1,5 @@
-# miniAdventure
+# miniAdventureGame
 A simple adventure game
-
-Group: 122
-- Member: 3035695189 Wong Wing Kei
-- Member: 3035691195 Mak Ka Ho
 
 //
 
@@ -16,8 +12,6 @@ Game description:
 - Once the strength of player turns 0, the game will end and the player will lose.
 
 Plot:
-
-
 
 At the beginning of the game, the player can choose to continue the previous game or start a new game. If the player presses C which means continue the previous game. The previous data including name, life and scenario will be returned. If the player chooses to play a new game, after some instructions and introduction, the player will choose from left or right at the fork in the road and lead to 2 different paths -  wooden huts and lake. If they choose wooden huts, they will hear a child crying. They can choose comfort him or not. If they choose to comfort her, the child will be happy and give the player a steak. If not, the child will feel annoyed and the players will be deducted 20 cp value If they choose lake, they have to play rock-paper-scissors with a fairy. They need to win the fairy to get a fish. Otherwise, they cannot get anything food from the fairy.
 
@@ -86,7 +80,7 @@ List of features that we plan to implement:
   - pointer operators are used to access the value at the address available in the pointer variable 
     (pass by reference instead of pass by value)
     
-4. Requirement 3: File input/output
+4. Requirement 4: File input/output
 - output the result of the game (player's name, success/failure, CP left) to a file "result.txt"
 - print the winning or losing message by reading line from file "winGameMsg.txt" and "endGameMsg.txt"
 - there will be files to store the player's game status. 
